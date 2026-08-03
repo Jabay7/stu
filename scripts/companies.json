@@ -376,6 +376,109 @@
       "site": "wellstarcareers",
       "name": "Wellstar Health System",
       "state": "GA"
+    },
+    {
+      "tenant": "searhc",
+      "wd": "wd5",
+      "site": "SEARHC",
+      "name": "SEARHC",
+      "state": "AK"
+    },
+    {
+      "tenant": "bozemanhealth",
+      "wd": "wd1",
+      "site": "BozemanHealthCareers",
+      "name": "Bozeman Health",
+      "state": "MT"
+    },
+    {
+      "tenant": "brownhealth",
+      "wd": "wd12",
+      "site": "External_Careers",
+      "name": "Brown University Health",
+      "state": "RI"
+    },
+    {
+      "tenant": "crhc",
+      "wd": "wd1",
+      "site": "Concord_Careers",
+      "name": "Concord Hospital",
+      "state": "NH"
+    },
+    {
+      "tenant": "nebraskamed",
+      "wd": "wd5",
+      "site": "NM",
+      "name": "Nebraska Medicine",
+      "state": "NE"
+    },
+    {
+      "tenant": "stph",
+      "wd": "wd5",
+      "site": "STPH",
+      "name": "St. Tammany Health System",
+      "state": "LA"
+    },
+    {
+      "tenant": "wvumedicine",
+      "wd": "wd1",
+      "site": "WVUH",
+      "name": "WVU Medicine",
+      "state": "WV"
+    },
+    {
+      "tenant": "vumc",
+      "wd": "wd1",
+      "site": "vumccareers",
+      "name": "Vanderbilt University Medical Center",
+      "state": "TN"
+    },
+    {
+      "tenant": "vcuhealth",
+      "wd": "wd1",
+      "site": "VCUHealth_careers",
+      "name": "VCU Health",
+      "state": "VA"
+    },
+    {
+      "tenant": "nc",
+      "wd": "wd108",
+      "site": "NC_Careers",
+      "name": "State of North Carolina",
+      "state": "NC"
+    },
+    {
+      "tenant": "wustl",
+      "wd": "wd1",
+      "site": "External",
+      "name": "Washington University in St. Louis",
+      "state": "MO"
+    },
+    {
+      "tenant": "imh",
+      "wd": "wd108",
+      "site": "IntermountainCareers",
+      "name": "Intermountain Health",
+      "nationwide": true
+    },
+    {
+      "tenant": "mckesson",
+      "wd": "wd3",
+      "site": "External_Careers",
+      "name": "McKesson",
+      "nationwide": true
+    },
+    {
+      "tenant": "hyvee",
+      "wd": "wd1",
+      "site": "hyveecareers",
+      "name": "Hy-Vee"
+    },
+    {
+      "tenant": "ms",
+      "wd": "wd5",
+      "site": "External",
+      "name": "Morgan Stanley"
     }
   ]
 }

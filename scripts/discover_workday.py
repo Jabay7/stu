@@ -28,64 +28,58 @@ CFG = ROOT / "scripts" / "companies.json"
 UA = {"User-Agent": "stu-jobboard/2.0 (student project)", "Content-Type": "application/json"}
 BODY = json.dumps({"appliedFacets": {}, "limit": 20, "offset": 0, "searchText": ""}).encode()
 
-HOSTS = ["wd1", "wd5", "wd3", "wd12", "wd101", "wd103"]
+HOSTS = ["wd1", "wd5", "wd3", "wd12", "wd108", "wd101", "wd103", "wd102"]
 SITES = [
     "External", "external", "Careers", "careers", "Search", "search",
     "Jobs", "jobs", "ExternalCareerSite", "External_Career_Site",
     "CareerSite", "{t}careers", "{t}jobs", "{T}Careers", "{T}_Careers",
     "{t}Careers", "{t}Jobs", "{T}jobs", "{T}Jobs", "{t}_careers",
     "careersite", "CareerHome", "Career", "ExternalSite", "Recruiting",
+    "{U}_Careers", "{U}_External", "{U}Careers", "External_Careers",
+    "ExternalCareers", "External_Career_Site",
 ]
 
-# Verified by hand; site names like "OhioHealthJobs" and "targetcareers" don't
-# follow any pattern worth guessing at.
+# Verified by hand. Site names like "OhioHealthJobs", "targetcareers" and
+# "NC_Careers" follow no pattern worth guessing at, and `state` is what rescues
+# employers that label postings by facility rather than by city.
 KNOWN = [
     {"tenant": "target", "wd": "wd5", "site": "targetcareers", "name": "Target", "nationwide": True},
-    {"tenant": "ohiohealth", "wd": "wd5", "site": "OhioHealthJobs", "name": "OhioHealth"},
-    {"tenant": "bannerhealth", "wd": "wd5", "site": "Careers", "name": "Banner Health"},
+    {"tenant": "ohiohealth", "wd": "wd5", "site": "OhioHealthJobs", "name": "OhioHealth", "state": "OH"},
+    {"tenant": "bannerhealth", "wd": "wd5", "site": "Careers", "name": "Banner Health", "state": "AZ"},
+    # Filling specific state gaps.
+    {"tenant": "searhc", "wd": "wd5", "site": "SEARHC", "name": "SEARHC", "state": "AK"},
+    {"tenant": "bozemanhealth", "wd": "wd1", "site": "BozemanHealthCareers", "name": "Bozeman Health", "state": "MT"},
+    {"tenant": "brownhealth", "wd": "wd12", "site": "External_Careers", "name": "Brown University Health", "state": "RI"},
+    {"tenant": "crhc", "wd": "wd1", "site": "Concord_Careers", "name": "Concord Hospital", "state": "NH"},
+    {"tenant": "nebraskamed", "wd": "wd5", "site": "NM", "name": "Nebraska Medicine", "state": "NE"},
+    {"tenant": "stph", "wd": "wd5", "site": "STPH", "name": "St. Tammany Health System", "state": "LA"},
+    {"tenant": "wvumedicine", "wd": "wd1", "site": "WVUH", "name": "WVU Medicine", "state": "WV"},
+    {"tenant": "vumc", "wd": "wd1", "site": "vumccareers", "name": "Vanderbilt University Medical Center", "state": "TN"},
+    {"tenant": "vcuhealth", "wd": "wd1", "site": "VCUHealth_careers", "name": "VCU Health", "state": "VA"},
+    {"tenant": "nc", "wd": "wd108", "site": "NC_Careers", "name": "State of North Carolina", "state": "NC"},
+    {"tenant": "wustl", "wd": "wd1", "site": "External", "name": "Washington University in St. Louis", "state": "MO"},
+    # Multi-state chains -- swept state by state instead of given a home state.
+    {"tenant": "imh", "wd": "wd108", "site": "IntermountainCareers", "name": "Intermountain Health", "nationwide": True},
+    {"tenant": "mckesson", "wd": "wd3", "site": "External_Careers", "name": "McKesson", "nationwide": True},
 ]
 
 # Grouped by the gap each one fills. Health systems and universities are the
 # employers that actually exist in every state.
+# Aimed at the states that still show zero. State governments are included
+# because they hire in every state and several run public Workday boards --
+# North Carolina's nc.wd108/NC_Careers is the model.
 CANDIDATES = {
-    "nationwide": ["target", "walgreens", "bestbuy", "nordstrom", "lowes", "publix", "aramark"],
-    "FL": ["adventhealth", "orlandohealth", "leehealth", "moffitt", "jacksonhealth", "usf", "fiu"],
-    "OH": ["ohiohealth", "nationwidechildrens", "trihealth", "premierhealth", "kent", "ohiostate"],
-    "PA": ["upmc", "geisinger", "jefferson", "wellspan", "towerhealth", "temple", "psu"],
-    "TN": ["vanderbilt", "balladhealth", "methodist", "utk"],
-    "AZ": ["bannerhealth", "honorhealth", "asu", "arizona"],
-    "MN": ["fairview", "allina", "hennepin", "umn", "mayoclinic"],
-    "NC": ["novanthealth", "atriumhealth", "unchealth", "duke", "ncsu"],
-    "MO": ["bjc", "mercy", "ssmhealth", "umsystem"],
-    "LA": ["ochsner", "lsu", "tulane"],
-    "OK": ["ouhealth", "saintfrancis", "okstate"],
-    "IA": ["unitypoint", "mercyone", "uiowa"],
-    "MS": ["umc", "msstate"],
-    "AL": ["uab", "auburn", "usahealth"],
-    "SC": ["prismahealth", "musc", "clemson", "sc"],
-    "ID": ["stlukes", "boisestate"],
-    "MT": ["billingsclinic", "benefis", "montana"],
-    "ND": ["sanfordhealth", "ndus", "und"],
-    "SD": ["avera", "sdstate"],
-    "NE": ["nebraskamed", "chihealth", "unl"],
-    "WV": ["wvumedicine", "wvu"],
-    "VT": ["uvmhealth", "uvm"],
-    "NH": ["dartmouth", "unh"],
-    "RI": ["lifespan", "brownhealth", "uri"],
-    "HI": ["queens", "hawaiipacifichealth", "hawaii"],
-    "AK": ["southcentralfoundation", "alaska"],
-    "NV": ["renown", "unlv", "nevada"],
-    "NM": ["presbyterian", "unm"],
-    "DE": ["christianacare", "udel"],
-    "ME": ["mainehealth", "maine"],
-    "DC": ["medstar", "childrensnational", "georgetown", "gwu"],
-    "WY": ["cheyenneregional", "uwyo"],
-    "IN": ["iuhealth", "indiana", "purdue"],
-    "GA": ["wellstar", "piedmont", "emory", "gatech"],
-    "VA": ["sentara", "vcu", "virginia"],
-    "CO": ["uchealth", "centura", "colorado"],
-    "UT": ["intermountain", "utah"],
-    "OR": ["ohsu", "providence", "oregonstate"],
+    "CT": ["hartfordhealthcare", "ynhhs", "uconn", "ct", "stamfordhealth", "trinityhealthofne"],
+    "DC": ["georgetown", "howard", "medstar", "dc", "childrensnational", "dcgov"],
+    "HI": ["hawaiipacifichealth", "queens", "hawaii", "kapiolani", "hmsa", "hawaiianelectric"],
+    "IA": ["unitypoint", "mercyone", "uiowa", "ia", "iastate", "wellmark", "hyvee"],
+    "ID": ["stlukes", "saintalphonsus", "boisestate", "id", "uidaho", "idahopower"],
+    "MS": ["umc", "olemiss", "msstate", "ms", "bmhcc", "southernmiss"],
+    "ND": ["sanfordhealth", "altru", "und", "nd", "ndsu", "essentiahealth"],
+    "NM": ["presbyterian", "unm", "nmsu", "nm", "phs", "lovelace"],
+    "NV": ["renown", "unlv", "unr", "nv", "nevada", "nvenergy"],
+    "WY": ["uwyo", "cheyenneregional", "wy", "wyomingmedicalcenter", "banner"],
+    "state-gov": ["va", "wa", "or", "co", "az", "tn", "sc", "md", "mn", "wi", "in", "ky"],
 }
 
 
@@ -114,7 +108,7 @@ def find(tenant: str) -> dict | None:
         if probe(f"{api}/__probe__/jobs") is None:
             continue
         for template in SITES:
-            site = template.format(t=tenant, T=tenant.capitalize())
+            site = template.format(t=tenant, T=tenant.capitalize(), U=tenant.upper())
             result = probe(f"{api}/{site}/jobs")
             if result and result[0] == "ok" and result[1] > 0:
                 return {"tenant": tenant, "wd": host, "site": site, "total": result[1]}
