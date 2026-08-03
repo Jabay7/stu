@@ -3,17 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>STU — entry-level tech jobs</title>
-<meta name="description" content="Internships and new-grad tech roles pulled straight from company job boards. Refreshed every night.">
+<title>STU — entry-level jobs for every major</title>
+<meta name="description" content="Internships and new-grad roles across every major — nursing, business, education, CS and more. Matched to your coursework. Refreshed nightly.">
 <meta name="theme-color" content="#0B1020">
 <link rel="icon" href="icons/icon-192.png" type="image/png">
 
-<!-- Preview card for when the link gets pasted into a group chat, which is
-     how this is actually meant to spread. -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="STU">
-<meta property="og:title" content="STU — entry-level tech jobs">
-<meta property="og:description" content="Internships and new-grad tech roles from 159 company job boards. Refreshed every night.">
+<meta property="og:title" content="STU — entry-level jobs for every major">
+<meta property="og:description" content="Internships and new-grad roles across every major, matched to the classes you've taken. Refreshed nightly.">
 <meta property="og:url" content="https://jabay7.github.io/stu/">
 <meta property="og:image" content="https://jabay7.github.io/stu/og-image.png">
 <meta property="og:image:width" content="1200">
@@ -40,51 +38,116 @@
       <h1>STU</h1>
       <p class="sub" id="subtitle">Loading…</p>
     </div>
-    <button class="icon-btn" id="refreshBtn" title="Reload listings" aria-label="Reload listings">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a9 9 0 1 1-2.6-6.4M21 3v6h-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <button class="icon-btn" id="majorBtn" title="Choose your majors" aria-label="Choose your majors">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M6 12h12M10 18h4" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
     </button>
   </div>
 
-  <div class="searchwrap">
+  <div class="searchwrap" data-pane="jobs">
     <svg class="searchicon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-    <input id="search" type="search" placeholder="Search role, company, city" autocomplete="off" enterkeyhint="search">
+    <input id="search" type="search" placeholder="Search role, employer, city" autocomplete="off" enterkeyhint="search">
   </div>
 
-  <div class="chips" id="chips" role="group" aria-label="Quick filters">
+  <div class="chips" id="chips" role="group" aria-label="Quick filters" data-pane="jobs">
+    <button class="chip" data-filter="match" aria-pressed="false" id="matchChip" hidden>Best match</button>
     <button class="chip" data-filter="internship" aria-pressed="false">Internships</button>
     <button class="chip" data-filter="new_grad" aria-pressed="false">New grad</button>
     <button class="chip" data-filter="sponsor" aria-pressed="false">Sponsor-friendly</button>
     <button class="chip" data-filter="remote" aria-pressed="false">Remote</button>
-    <button class="chip" data-filter="chicago" aria-pressed="false">Chicago</button>
+    <button class="chip" data-filter="nolicense" aria-pressed="false">No licence needed</button>
     <button class="chip" data-filter="fresh" aria-pressed="false">Last 7 days</button>
-    <button class="chip" data-filter="noclearance" aria-pressed="false">No clearance</button>
   </div>
 </header>
 
-<main id="list" class="list" aria-live="polite">
-  <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+<!-- ------------------------------------------------------------- jobs pane -->
+<main id="jobsPane" class="pane">
+  <div id="list" class="list" aria-live="polite">
+    <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+  </div>
+  <div class="empty" id="empty" hidden>
+    <p class="big">Nothing matches</p>
+    <p id="emptyHint">Try clearing a filter or adding another major.</p>
+    <button class="btn" id="clearAll">Clear filters</button>
+  </div>
 </main>
 
-<div class="empty" id="empty" hidden>
-  <p class="big">Nothing matches</p>
-  <p>Try clearing a filter or two.</p>
-  <button class="btn" id="clearAll">Clear filters</button>
-</div>
+<!-- --------------------------------------------------------- syllabus pane -->
+<section id="syllabusPane" class="pane" hidden>
+  <div class="wrap">
+    <h2 class="ph">Paste your syllabus</h2>
+    <p class="pd">STU pulls out the skills your classes taught and the dates you owe work, then ranks jobs by what you can already do.</p>
+
+    <textarea id="syllabusText" rows="8" placeholder="Paste the whole syllabus — course description, topics, and the schedule with due dates."></textarea>
+    <div class="row">
+      <button class="btn primary" id="parseBtn">Read syllabus</button>
+      <label class="btn file">
+        Attach file
+        <input type="file" id="syllabusFile" accept=".txt,.md,.csv,.html,.pdf" hidden>
+      </label>
+      <button class="btn ghost" id="clearSyl" hidden>Clear</button>
+    </div>
+    <p class="note" id="parseNote" hidden></p>
+
+    <div id="syllabusResult" hidden>
+      <h3 class="sh">Courses found <em id="courseCount"></em></h3>
+      <div class="tagrow" id="courseList"></div>
+
+      <h3 class="sh">Skills from your coursework <em id="skillCount"></em></h3>
+      <div class="tagrow" id="skillList"></div>
+      <p class="note">These are matched against every posting. Turn on <strong>Best match</strong> on the Jobs tab to rank by overlap.</p>
+
+      <h3 class="sh">Upcoming work <em id="dueCount"></em></h3>
+      <div id="dueList" class="duelist"></div>
+
+      <div class="remindbox" id="remindBox" hidden>
+        <div>
+          <strong>Reminders</strong>
+          <p class="note" id="remindNote">Get a notification the day before each due date.</p>
+        </div>
+        <button class="btn small" id="remindBtn">Turn on</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ------------------------------------------------------------ saved pane -->
+<section id="savedPane" class="pane" hidden>
+  <div id="savedList" class="list"></div>
+  <div class="empty" id="savedEmpty" hidden>
+    <p class="big">Nothing saved yet</p>
+    <p>Tap the bookmark on any job to keep it here.</p>
+  </div>
+</section>
 
 <nav class="tabbar" role="tablist">
-  <button class="tab is-active" data-tab="browse" role="tab" aria-selected="true">
+  <button class="tab is-active" data-tab="jobs" role="tab" aria-selected="true">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
-    <span>Browse</span>
+    <span>Jobs <em id="jobCount"></em></span>
+  </button>
+  <button class="tab" data-tab="syllabus" role="tab" aria-selected="false">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l4 4v14H6z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 12h7M9 16h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    <span>Syllabus <em id="sylBadge"></em></span>
   </button>
   <button class="tab" data-tab="saved" role="tab" aria-selected="false">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h12v16l-6-4-6 4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
     <span>Saved <em id="savedCount"></em></span>
   </button>
-  <button class="tab" data-tab="applied" role="tab" aria-selected="false">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12.5 9 17.5 20 6.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    <span>Applied <em id="appliedCount"></em></span>
-  </button>
 </nav>
+
+<!-- ------------------------------------------------------------ major sheet -->
+<div class="sheet-backdrop" id="sheetBackdrop" hidden></div>
+<div class="sheet" id="majorSheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle" hidden>
+  <div class="sheet-head">
+    <h2 id="sheetTitle">What are you studying?</h2>
+    <button class="icon-btn" id="sheetClose" aria-label="Close">✕</button>
+  </div>
+  <p class="pd">Pick any that apply. You can change this anytime.</p>
+  <div id="majorGrid" class="majorgrid"></div>
+  <div class="sheet-foot">
+    <button class="btn ghost" id="majorAll">Show all majors</button>
+    <button class="btn primary" id="majorDone">Done</button>
+  </div>
+</div>
 
 <div class="install" id="install" hidden>
   <span>Add STU to your home screen</span>
@@ -92,6 +155,7 @@
   <button class="icon-btn" id="installClose" aria-label="Dismiss">✕</button>
 </div>
 
+<script src="syllabus.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

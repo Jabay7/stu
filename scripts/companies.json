@@ -1,5 +1,5 @@
 {
-  "_comment": "Add a company by dropping one line in here. The nightly job picks it up automatically. Find the token in the company's careers URL, e.g. boards.greenhouse.io/TOKEN or jobs.ashbyhq.com/TOKEN.",
+  "_comment": "Employers STU reads. greenhouse/ashby/lever/smartrecruiters take a board token; workday takes {tenant, wd, site, name} read off the careers URL https://TENANT.WD.myworkdayjobs.com/SITE. The nightly job picks up additions with no code change.",
   "greenhouse": [
     "affirm",
     "airbnb",
@@ -164,5 +164,131 @@
     "tala",
     "wealthfront",
     "zoox"
+  ],
+  "smartrecruiters": [
+    "BoschGroup",
+    "Visa"
+  ],
+  "workday": [
+    {
+      "tenant": "cvshealth",
+      "wd": "wd1",
+      "site": "CVS_Health_Careers",
+      "name": "CVS Health"
+    },
+    {
+      "tenant": "hshs",
+      "wd": "wd1",
+      "site": "hshscareers",
+      "name": "Hospital Sisters Health System"
+    },
+    {
+      "tenant": "stcharles",
+      "wd": "wd1",
+      "site": "External",
+      "name": "St. Charles Health System"
+    },
+    {
+      "tenant": "bhs",
+      "wd": "wd1",
+      "site": "careers",
+      "name": "Baptist Health"
+    },
+    {
+      "tenant": "nshs",
+      "wd": "wd1",
+      "site": "ns-eeh",
+      "name": "Endeavor Health"
+    },
+    {
+      "tenant": "kansashealthsystem",
+      "wd": "wd1",
+      "site": "careers",
+      "name": "University of Kansas Health System"
+    },
+    {
+      "tenant": "bronsonhg",
+      "wd": "wd1",
+      "site": "nursing",
+      "name": "Bronson Healthcare"
+    },
+    {
+      "tenant": "montefiore",
+      "wd": "wd12",
+      "site": "MMC",
+      "name": "Montefiore"
+    },
+    {
+      "tenant": "healthcare",
+      "wd": "wd1",
+      "site": "Search",
+      "name": "Harris Health System"
+    },
+    {
+      "tenant": "northeastern",
+      "wd": "wd1",
+      "site": "careers",
+      "name": "Northeastern University"
+    },
+    {
+      "tenant": "american",
+      "wd": "wd1",
+      "site": "AU",
+      "name": "American University"
+    },
+    {
+      "tenant": "uasys",
+      "wd": "wd5",
+      "site": "UASYS",
+      "name": "University of Arkansas System"
+    },
+    {
+      "tenant": "montclair",
+      "wd": "wd1",
+      "site": "JobOpportunities",
+      "name": "Montclair State University"
+    },
+    {
+      "tenant": "wfu",
+      "wd": "wd1",
+      "site": "Staff_Career_Website_live",
+      "name": "Wake Forest University"
+    },
+    {
+      "tenant": "utaustin",
+      "wd": "wd1",
+      "site": "UTstudent",
+      "name": "UT Austin (student jobs)"
+    },
+    {
+      "tenant": "utaustin",
+      "wd": "wd1",
+      "site": "UTstaff",
+      "name": "UT Austin"
+    },
+    {
+      "tenant": "uchicago",
+      "wd": "wd5",
+      "site": "External",
+      "name": "University of Chicago"
+    },
+    {
+      "tenant": "3m",
+      "wd": "wd1",
+      "site": "Search",
+      "name": "3M"
+    },
+    {
+      "tenant": "mtb",
+      "wd": "wd5",
+      "site": "MTB",
+      "name": "M&T Bank"
+    },
+    {
+      "tenant": "workday",
+      "wd": "wd5",
+      "site": "Workday",
+      "name": "Workday"
+    }
   ]
 }

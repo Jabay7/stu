@@ -1,154 +1,184 @@
 # STU
 
-Entry-level tech jobs — internships, new-grad roles, and 0–3 YOE positions —
-pulled straight from company job boards and refreshed every night.
+Entry-level jobs — internships, new-grad roles and 0–3 YOE positions — for
+**every major**, pulled straight from employer job boards and refreshed nightly.
+Paste your syllabus and it ranks postings by the skills your classes actually
+taught, and reminds you what's due.
 
-Installable to a phone home screen, works offline, no accounts, no backend.
+Live: **https://jabay7.github.io/stu/**
 
 ---
 
 ## Why this exists
 
 Every big job site buries entry-level roles under thousands of senior postings,
-and the "0 years experience" filter on LinkedIn is famously wrong. The
-open-source alternatives are giant unfiltered README tables.
+the "0 years experience" filter is famously wrong, and the open-source
+alternatives are giant unfiltered README tables that only ever cover software.
 
-STU answers the three questions a graduating student actually has:
+STU answers what a graduating student actually asks:
 
 1. Is this really entry-level, or is it "entry-level, 5 years required"?
 2. Will they sponsor a visa — or have they explicitly ruled it out?
-3. Was this posted recently enough to be worth applying to?
+3. Does this have anything to do with what I'm studying?
+4. Am I actually qualified, given the classes I've taken?
 
 ## How it works
 
 ```
-159 company job boards          Greenhouse / Ashby / Lever public JSON APIs
-          │
-          ▼
-scripts/fetch_jobs.py           filter to entry-level, classify, dedupe
-          │
-          ▼
-data/jobs.json                  ~60 roles, committed to the repo
-          │
-          ▼
-static PWA (index.html)         filters, search, saved/applied, offline
+181 employer boards        Greenhouse · Ashby · Lever · SmartRecruiters · Workday
+        │
+        ▼
+scripts/fetch_jobs.py      entry-level filter, major tagging, skill extraction
+        │
+        ▼
+data/jobs.json             ~300 roles, committed to the repo
+        │
+        ▼
+static PWA + Capacitor     filters, coursework matching, reminders, offline
 ```
 
-There is no server and no database. The whole app is static files, so it hosts
-free on GitHub Pages and cannot go down under load.
+No server, no database. The web app is static files hosted free on GitHub Pages;
+the phone app is the same code wrapped natively.
 
 ### No scraping
 
-Greenhouse, Ashby and Lever each publish a documented public JSON endpoint per
-company board. That's the entire data source. Nothing here parses HTML, so
-nothing breaks when a careers page gets restyled, and there's no bot-blocking to
-fight — unlike scraping LinkedIn or Indeed, which is both fragile and against
-their terms.
+All five platforms publish documented public JSON APIs per employer — the same
+endpoints their own careers pages call. Nothing parses HTML, so nothing breaks
+when a careers page is restyled, and there's no bot-blocking to fight, unlike
+scraping LinkedIn or Indeed.
 
-### What the classifier does
+Workday is what makes non-CS majors possible: hospitals, universities and
+government post there, and tech ATSes simply don't carry those jobs. Three
+quirks shaped the adapter — `limit` caps at 20, `postedOn` is prose
+("Posted 30+ Days Ago") rather than a date, and descriptions need a second
+request per job. So STU queries by entry-level keyword instead of paging
+18,000 postings, and only fetches a description once a title already looks junior.
 
-Raw postings don't say "this is entry-level" in a machine-readable field, so
-`fetch_jobs.py` derives it:
+### Majors
+
+Seventeen majors across STEM, Health, Business, Social and Creative, defined in
+`scripts/taxonomy.json`. Adding one is a data edit — no code change. A job can
+belong to several (a nurse practitioner fellowship is both Nursing and Pre-Med).
+
+### What the classifier derives
 
 | Signal | How |
 |---|---|
-| Entry-level | Strong title markers (intern, new grad, campus, apprentice) beat seniority words, so *Associate Product Manager, New Grad* survives while *Senior Engineer II* is dropped |
-| Years required | Smallest year-count mentioned near the word "experience"; anything ≥ 4 is rejected as a mislabelled senior role |
-| Sponsorship | Explicit refusal ("unable to sponsor") vs explicit offer, with the many false uses of the word — "executive sponsorship", "sponsorship marketing" — deliberately ignored |
-| Location | US state resolved from state names, `, XX` suffixes, or a major-city lookup |
-| Clearance | Flags roles requiring a US security clearance |
+| Entry-level | Strong title markers (intern, new grad, campus, nurse residency) beat seniority words, so *Associate Product Manager, New Grad* survives while *Senior Engineer II* is dropped |
+| Years required | Smallest count mentioned near "experience"; ≥ 4 is rejected as a mislabelled senior role |
+| Sponsorship | Explicit refusal vs explicit offer, ignoring the many false uses — "executive sponsorship", "sponsorship marketing" |
+| Licence | Flags roles needing an active RN/NP/MD licence — the clinical equivalent of "5 years required" |
+| Skills | Coursework vocabulary found in the posting, which is what syllabus matching compares against |
 
-Everything is transparent regex in one file — you can read exactly why any job
-was included or excluded, which matters more than a black box getting it right
-90% of the time.
+**On sponsorship, one honest note:** almost no employer advertises that it *will*
+sponsor, while plenty state that they won't. So "Sponsor-friendly" hides only
+roles that have explicitly ruled it out. It is not a promise that the rest will.
 
-**On sponsorship, one honest note:** almost no company advertises that it *will*
-sponsor, while plenty state that they won't. So the useful filter is
-"Sponsor-friendly", which hides only roles that have explicitly ruled sponsorship
-out. It is not a promise that the rest will sponsor.
+## Syllabus matching
+
+Paste a syllabus on the Syllabus tab. Everything is parsed in the browser — a
+syllabus is a personal document and there is no server here to send it to.
+
+STU pulls out three things:
+
+- **Course codes** — `NURS 310`, `BIOL 2010`
+- **Skills** — matched against the same vocabulary used to tag jobs, so overlap
+  is meaningful rather than fuzzy string similarity
+- **Due dates** — assignment/exam lines with a date, with the year inferred
+  (a date more than four months past means next year, not this one)
+
+Turning on **Best match** ranks jobs by how much of their required skill set your
+coursework already covers, normalised so a posting listing 3 skills and matching
+all 3 beats one listing 14 and matching 4. Every match shows *why* it ranked.
+
+### Reminders
+
+Due dates become notifications the day before at 9am.
+
+- **Installed app:** real scheduled OS notifications via Capacitor, which fire
+  whether or not the app is open.
+- **Web:** browsers can't reliably run background alarms, so STU alerts you about
+  imminent work when you open it. The UI says so rather than implying otherwise.
 
 ## The nightly refresh
 
-`.github/workflows/refresh.yml` runs at 07:10 UTC (2:10am Chicago) every day:
+`.github/workflows/refresh.yml` runs at 07:10 UTC (2:10am Chicago):
+re-fetch all 181 boards → rewrite `data/jobs.json` → commit and push only if
+something changed → Pages redeploys itself. If every board fails, the script
+exits without overwriting, so the app keeps yesterday's listings rather than
+publishing an empty page.
 
-1. Re-fetches all 159 boards
-2. Rewrites `data/jobs.json`
-3. Commits and pushes only if something actually changed
-4. GitHub Pages redeploys automatically
+You can also trigger it by hand from the Actions tab.
 
-If every board fails on a given night, the script exits without overwriting —
-the app keeps yesterday's listings rather than publishing an empty page.
+## Building the phone app
 
-You can also trigger it by hand from the Actions tab ("Run workflow"), which is
-the useful button during a demo.
+The project is developed on Windows without Node or the Android SDK, so the
+native builds happen in CI.
 
-## Adding companies
+**Android** — run the *Build Android app* workflow (or push a `v*` tag). It
+collects `www/`, adds the Capacitor Android platform, builds, and uploads an
+installable APK as an artifact. Tagged runs also attach it to a Release.
 
-One line in `scripts/companies.json`, under whichever platform the company uses.
-The nightly job picks it up with no other changes.
+**iOS** — requires macOS and Xcode, which cannot be done from Windows. The
+Capacitor config is ready; the remaining steps are yours:
 
-To find new ones automatically:
+1. Apple Developer Program — $99/year, and only you can create it
+2. On a Mac: `npm install && npx cap add ios && npx cap sync ios`
+3. Open `ios/App/App.xcworkspace`, set the signing team, archive, upload
+
+**One thing to know before paying the fee:** App Review guideline 4.2 rejects
+apps that are mainly aggregated web content. The syllabus reader and local
+notifications are the native functionality that argues against that reading, but
+approval is not guaranteed. The Android and web versions have no such gate.
+
+## Adding employers
+
+One entry in `scripts/companies.json`. Token-based platforms take a string;
+Workday takes `{tenant, wd, site, name}` read off the careers URL
+`https://TENANT.WD.myworkdayjobs.com/SITE`.
 
 ```bash
-uv run scripts/discover_companies.py
+uv run scripts/discover_companies.py   # probes candidates, keeps what responds
 ```
-
-That probes a candidate list against all three APIs and merges whatever responds
-with real postings. The current roster of 159 was built this way.
 
 ## Running locally
 
 ```bash
-uv run scripts/fetch_jobs.py     # refresh data/jobs.json
+uv run scripts/fetch_jobs.py     # refresh data/ (several minutes -- Workday is slow)
 python -m http.server 8765       # then open http://127.0.0.1:8765
 ```
 
-Images are generated, not hand-made:
-
 ```bash
-uv run scripts/make_icons.py   # app icons, writes PNG bytes directly, no deps
-uv run scripts/make_og.py      # social preview card (needs Pillow, build-time only)
+uv run scripts/make_icons.py     # app icons, writes PNG bytes directly, no deps
+uv run scripts/make_og.py        # social card (Pillow, build-time only)
+uv run scripts/build_www.py      # collect web assets for the native build
 ```
-
-## Install on a phone
-
-Open the site in Chrome (Android) or Safari (iOS) and choose **Add to Home
-Screen**. It launches full-screen with its own icon, and cached listings stay
-readable with no signal.
 
 ## Limitations
 
-- **Coverage is 159 companies, not the whole market.** It is deep on tech
-  startups and scale-ups, thin on banks, defense, and non-US employers.
-- **Volume is seasonal.** New-grad and internship postings for the following
-  summer land between August and November; a count in the dozens during spring
-  is expected, not a bug.
-- **The classifier is heuristic.** It will occasionally miss an oddly-titled
-  entry role or admit one that's really mid-level.
-- **Sponsorship reflects what the posting says**, which is sometimes nothing.
+- **Coverage is 181 employers, not the whole market.** Deep on tech, health
+  systems and universities; thin on government, K-12, and non-US employers.
+- **Volume is seasonal.** New-grad and internship postings land August–November.
+- **Some majors are still thin.** Environmental Science and Public Health have
+  very few postings — the honest fix is more employers, not looser matching.
+- **The classifier is heuristic.** It will occasionally miss an oddly-titled role
+  or admit one that's really mid-level.
+- **PDF syllabi aren't parsed yet** — paste the text instead. The app says so
+  rather than failing silently.
 
 ## Layout
 
 ```
-index.html  styles.css  app.js     the app
-sw.js  manifest.webmanifest        offline + installability
-data/jobs.json  data/meta.json     generated; committed so Pages can serve it
-scripts/fetch_jobs.py              fetch + classify
-scripts/discover_companies.py      find new company boards
-scripts/companies.json             the roster
-scripts/make_icons.py              PNG icons, no dependencies
-scripts/make_og.py                 og-image.png social card
-.github/workflows/refresh.yml      the nightly job
+index.html  styles.css  app.js  syllabus.js   the app
+sw.js  manifest.webmanifest                   offline + installability
+data/jobs.json  meta.json  taxonomy.json      generated; committed so Pages serves them
+scripts/fetch_jobs.py                         orchestrator
+scripts/sources.py                            the five ATS adapters
+scripts/classify.py                           entry-level, majors, skills, sponsorship
+scripts/taxonomy.json                         majors and coursework vocabulary
+scripts/companies.json                        the employer roster
+scripts/build_www.py  make_icons.py  make_og.py
+capacitor.config.json  package.json           native wrapper
+.github/workflows/refresh.yml                 nightly data job
+.github/workflows/android.yml                 APK build
 ```
-
-## Note on the nightly job
-
-Pushing `.github/workflows/` requires a GitHub token with the `workflow` scope.
-If a push is rejected with *"refusing to allow an OAuth App to create or update
-workflow"*, run:
-
-```bash
-gh auth refresh -s workflow
-```
-
-That's a browser authorization step, so it has to be done by hand once.

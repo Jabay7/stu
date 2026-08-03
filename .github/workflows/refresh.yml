@@ -17,7 +17,9 @@ concurrency:
 jobs:
   refresh:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    # Workday needs many small paged requests per employer, so the run is far
+    # longer than it was when this only read three tech ATSes.
+    timeout-minutes: 45
 
     steps:
       - uses: actions/checkout@v4

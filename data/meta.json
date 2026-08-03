@@ -1,13 +1,122 @@
 {
-  "generated_at": "2026-08-03T19:43:07+00:00",
-  "total": 59,
-  "companies_ok": 159,
-  "companies_failed": [],
+  "generated_at": "2026-08-03T20:01:06+00:00",
+  "total": 299,
+  "employers_ok": 181,
+  "employers_failed": [],
+  "majors": [
+    {
+      "id": "cs",
+      "label": "Computer Science",
+      "group": "STEM",
+      "count": 103
+    },
+    {
+      "id": "data",
+      "label": "Data Science & Analytics",
+      "group": "STEM",
+      "count": 36
+    },
+    {
+      "id": "nursing",
+      "label": "Nursing",
+      "group": "Health",
+      "count": 48
+    },
+    {
+      "id": "medicine",
+      "label": "Medicine & Pre-Med",
+      "group": "Health",
+      "count": 35
+    },
+    {
+      "id": "publichealth",
+      "label": "Public Health",
+      "group": "Health",
+      "count": 1
+    },
+    {
+      "id": "biology",
+      "label": "Biology & Life Sciences",
+      "group": "STEM",
+      "count": 5
+    },
+    {
+      "id": "engineering",
+      "label": "Engineering (non-software)",
+      "group": "STEM",
+      "count": 9
+    },
+    {
+      "id": "business",
+      "label": "Business & Management",
+      "group": "Business",
+      "count": 36
+    },
+    {
+      "id": "finance",
+      "label": "Finance & Accounting",
+      "group": "Business",
+      "count": 6
+    },
+    {
+      "id": "marketing",
+      "label": "Marketing & Communications",
+      "group": "Business",
+      "count": 13
+    },
+    {
+      "id": "sales",
+      "label": "Sales & Customer Success",
+      "group": "Business",
+      "count": 46
+    },
+    {
+      "id": "education",
+      "label": "Education & Teaching",
+      "group": "Social",
+      "count": 5
+    },
+    {
+      "id": "law",
+      "label": "Law & Criminal Justice",
+      "group": "Social",
+      "count": 3
+    },
+    {
+      "id": "psych",
+      "label": "Psychology & Social Work",
+      "group": "Social",
+      "count": 23
+    },
+    {
+      "id": "design",
+      "label": "Design & Arts",
+      "group": "Creative",
+      "count": 4
+    },
+    {
+      "id": "hr",
+      "label": "Human Resources",
+      "group": "Business",
+      "count": 2
+    },
+    {
+      "id": "environment",
+      "label": "Environmental Science",
+      "group": "STEM",
+      "count": 0
+    }
+  ],
   "by_role": {
-    "internship": 26,
-    "new_grad": 10,
-    "entry": 23
+    "internship": 78,
+    "new_grad": 63,
+    "entry": 158
   },
-  "sponsors": 5,
-  "remote": 13
+  "by_source": {
+    "greenhouse": 121,
+    "ashby": 36,
+    "lever": 15,
+    "smartrecruiters": 18,
+    "workday": 109
+  }
 }

@@ -48,8 +48,9 @@ def font(size: int, bold: bool = False):
 def main() -> None:
     meta_path = ROOT / "data" / "meta.json"
     meta = json.loads(meta_path.read_text(encoding="utf-8")) if meta_path.exists() else {}
-    companies = meta.get("companies_ok", 0)
+    employers = meta.get("employers_ok", meta.get("companies_ok", 0))
     total = meta.get("total", 0)
+    majors = sum(1 for m in meta.get("majors", []) if m.get("count"))
 
     img = Image.new("RGB", (W, H), BG)
     d = ImageDraw.Draw(img)
@@ -70,14 +71,14 @@ def main() -> None:
         y += h + gap
 
     d.text((90, 330), "STU", font=font(112, bold=True), fill=TEXT)
-    d.text((92, 462), "Entry-level tech jobs", font=font(44), fill=TEXT)
+    d.text((92, 462), "Entry-level jobs for every major", font=font(40), fill=TEXT)
 
-    sub = f"{total} roles from {companies} company boards  ·  refreshed nightly"
-    d.text((92, 528), sub, font=font(28), fill=MUTED)
+    sub = f"{total} roles  ·  {employers} employers  ·  {majors} majors  ·  refreshed nightly"
+    d.text((92, 528), sub, font=font(26), fill=MUTED)
 
     out = ROOT / "og-image.png"
     img.save(out, "PNG", optimize=True)
-    print(f"wrote {out.name} ({W}x{H}) — {total} roles, {companies} boards")
+    print(f"wrote {out.name} ({W}x{H}) — {total} roles, {employers} employers, {majors} majors")
 
 
 if __name__ == "__main__":

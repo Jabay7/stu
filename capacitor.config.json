@@ -1,0 +1,19 @@
+{
+  "appId": "com.jabay7.stu",
+  "appName": "STU",
+  "webDir": "www",
+  "backgroundColor": "#0B1020",
+  "android": {
+    "backgroundColor": "#0B1020"
+  },
+  "ios": {
+    "backgroundColor": "#0B1020",
+    "contentInset": "always"
+  },
+  "plugins": {
+    "LocalNotifications": {
+      "smallIcon": "ic_stat_icon",
+      "iconColor": "#4ADEA0"
+    }
+  }
+}
