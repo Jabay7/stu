@@ -1,0 +1,42 @@
+name: Refresh job listings
+
+on:
+  schedule:
+    # 07:10 UTC = 2:10am Chicago (CDT). Off-the-hour so we're not competing with
+    # every other cron on GitHub's scheduler.
+    - cron: "10 7 * * *"
+  workflow_dispatch:   # lets you hit "Run workflow" by hand during a demo
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Fetch listings
+        run: uv run scripts/fetch_jobs.py
+
+      - name: Commit if anything changed
+        run: |
+          git config user.name  "stu-bot"
+          git config user.email "actions@github.com"
+          git add data/
+          if git diff --staged --quiet; then
+            echo "No change in listings today."
+          else
+            COUNT=$(python -c "import json;print(len(json.load(open('data/jobs.json'))))")
+            git commit -m "data: refresh listings (${COUNT} roles)"
+            git push
+          fi

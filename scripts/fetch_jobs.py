@@ -57,8 +57,6 @@ SENIOR_TITLE = re.compile(
     r"(?:engineering|product|program|general|senior)\s+manager)\b",
     re.I,
 )
-GRAD_YEAR = re.compile(r"\b20(2[5-9]|3[0-2])\b")
-
 CATEGORIES = [
     ("Data / ML", r"\b(machine\s?learning|\bml\b|\bai\b|data\s+(scien|engineer|analy)|"
                   r"deep\s+learning|research\s+scien|quantitative|analytics)\b"),

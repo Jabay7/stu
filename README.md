@@ -103,10 +103,11 @@ uv run scripts/fetch_jobs.py     # refresh data/jobs.json
 python -m http.server 8765       # then open http://127.0.0.1:8765
 ```
 
-Icons are generated, not committed by hand:
+Images are generated, not hand-made:
 
 ```bash
-uv run scripts/make_icons.py
+uv run scripts/make_icons.py   # app icons, writes PNG bytes directly, no deps
+uv run scripts/make_og.py      # social preview card (needs Pillow, build-time only)
 ```
 
 ## Install on a phone
@@ -136,5 +137,18 @@ scripts/fetch_jobs.py              fetch + classify
 scripts/discover_companies.py      find new company boards
 scripts/companies.json             the roster
 scripts/make_icons.py              PNG icons, no dependencies
+scripts/make_og.py                 og-image.png social card
 .github/workflows/refresh.yml      the nightly job
 ```
+
+## Note on the nightly job
+
+Pushing `.github/workflows/` requires a GitHub token with the `workflow` scope.
+If a push is rejected with *"refusing to allow an OAuth App to create or update
+workflow"*, run:
+
+```bash
+gh auth refresh -s workflow
+```
+
+That's a browser authorization step, so it has to be done by hand once.
