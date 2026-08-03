@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>STU — entry-level tech jobs</title>
+<meta name="description" content="Internships and new-grad tech roles pulled straight from company job boards. Refreshed every night.">
+<meta name="theme-color" content="#0B1020">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="STU">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <svg class="mark" viewBox="0 0 24 24" aria-hidden="true">
+      <rect x="4" y="5"  width="15" height="3" rx="1.5" fill="#7DF0A8"/>
+      <rect x="4" y="10.5" width="11" height="3" rx="1.5" fill="#4ADEA0"/>
+      <rect x="4" y="16" width="7"  height="3" rx="1.5" fill="#38BD94"/>
+    </svg>
+    <div>
+      <h1>STU</h1>
+      <p class="sub" id="subtitle">Loading…</p>
+    </div>
+    <button class="icon-btn" id="refreshBtn" title="Reload listings" aria-label="Reload listings">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a9 9 0 1 1-2.6-6.4M21 3v6h-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+
+  <div class="searchwrap">
+    <svg class="searchicon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    <input id="search" type="search" placeholder="Search role, company, city" autocomplete="off" enterkeyhint="search">
+  </div>
+
+  <div class="chips" id="chips" role="group" aria-label="Quick filters">
+    <button class="chip" data-filter="internship">Internships</button>
+    <button class="chip" data-filter="new_grad">New grad</button>
+    <button class="chip" data-filter="sponsor">Sponsor-friendly</button>
+    <button class="chip" data-filter="remote">Remote</button>
+    <button class="chip" data-filter="chicago">Chicago</button>
+    <button class="chip" data-filter="fresh">Last 7 days</button>
+    <button class="chip" data-filter="noclearance">No clearance</button>
+  </div>
+</header>
+
+<main id="list" class="list" aria-live="polite">
+  <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+</main>
+
+<div class="empty" id="empty" hidden>
+  <p class="big">Nothing matches</p>
+  <p>Try clearing a filter or two.</p>
+  <button class="btn" id="clearAll">Clear filters</button>
+</div>
+
+<nav class="tabbar" role="tablist">
+  <button class="tab is-active" data-tab="browse" role="tab" aria-selected="true">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+    <span>Browse</span>
+  </button>
+  <button class="tab" data-tab="saved" role="tab" aria-selected="false">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h12v16l-6-4-6 4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+    <span>Saved <em id="savedCount"></em></span>
+  </button>
+  <button class="tab" data-tab="applied" role="tab" aria-selected="false">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12.5 9 17.5 20 6.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span>Applied <em id="appliedCount"></em></span>
+  </button>
+</nav>
+
+<div class="install" id="install" hidden>
+  <span>Add STU to your home screen</span>
+  <button class="btn small" id="installBtn">Install</button>
+  <button class="icon-btn" id="installClose" aria-label="Dismiss">✕</button>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
