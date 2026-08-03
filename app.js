@@ -19,6 +19,8 @@ const state = {
   filters: new Set(),
   tab: "jobs",
   majors: new Set(store.get("majors", [])),
+  stateSel: store.get("stateSel", ""),
+  audience: store.get("audience", ""),
   syllabus: store.get("syllabus", null),
   saved: new Set(store.get("saved", [])),
   applied: new Set(store.get("applied", [])),
@@ -28,7 +30,26 @@ const persist = () => {
   store.set("saved", [...state.saved]);
   store.set("applied", [...state.applied]);
   store.set("majors", [...state.majors]);
+  store.set("stateSel", state.stateSel);
+  store.set("audience", state.audience);
   store.set("syllabus", state.syllabus);
+};
+
+// Every state is listed whether or not it currently has postings -- an empty
+// Wyoming is a true answer, and hiding it would look like the filter is broken.
+const STATES = {
+  AL: "Alabama", AK: "Alaska", AZ: "Arizona", AR: "Arkansas", CA: "California",
+  CO: "Colorado", CT: "Connecticut", DE: "Delaware", DC: "District of Columbia",
+  FL: "Florida", GA: "Georgia", HI: "Hawaii", ID: "Idaho", IL: "Illinois",
+  IN: "Indiana", IA: "Iowa", KS: "Kansas", KY: "Kentucky", LA: "Louisiana",
+  ME: "Maine", MD: "Maryland", MA: "Massachusetts", MI: "Michigan",
+  MN: "Minnesota", MS: "Mississippi", MO: "Missouri", MT: "Montana",
+  NE: "Nebraska", NV: "Nevada", NH: "New Hampshire", NJ: "New Jersey",
+  NM: "New Mexico", NY: "New York", NC: "North Carolina", ND: "North Dakota",
+  OH: "Ohio", OK: "Oklahoma", OR: "Oregon", PA: "Pennsylvania",
+  RI: "Rhode Island", SC: "South Carolina", SD: "South Dakota", TN: "Tennessee",
+  TX: "Texas", UT: "Utah", VT: "Vermont", VA: "Virginia", WA: "Washington",
+  WV: "West Virginia", WI: "Wisconsin", WY: "Wyoming",
 };
 
 /* ------------------------------------------------------------------ format */
@@ -62,6 +83,7 @@ const dueLabel = (iso) => {
 };
 
 const ROLE_LABEL = { internship: "Internship", new_grad: "New grad", entry: "Entry level" };
+const AUDIENCE_LABEL = { students: "Students only", grads: "Recent grads", open: "Open to all" };
 const majorLabel = (id) => (state.taxonomy.majors.find((m) => m.id === id) || {}).label || id;
 
 /* ----------------------------------------------------------------- filters */
@@ -76,6 +98,14 @@ function visibleJobs() {
 
   let rows = state.jobs.filter((j) => {
     if (chosen.size && !j.majors.some((m) => chosen.has(m))) return false;
+
+    if (state.stateSel === "__remote") {
+      if (!j.remote) return false;
+    } else if (state.stateSel && j.state !== state.stateSel) {
+      return false;
+    }
+
+    if (state.audience && j.audience !== state.audience) return false;
 
     if (q) {
       const hay = `${j.title} ${j.company} ${j.location}`.toLowerCase();
@@ -105,6 +135,9 @@ function cardHTML(j) {
   const badges = [];
   if (j.days !== null && j.days <= 3) badges.push(`<span class="badge new">New</span>`);
   if (j.role) badges.push(`<span class="badge role">${ROLE_LABEL[j.role]}</span>`);
+  if (j.audience) {
+    badges.push(`<span class="badge aud-${j.audience}">${AUDIENCE_LABEL[j.audience]}</span>`);
+  }
   if (j.remote) badges.push(`<span class="badge remote">${j.hybrid ? "Hybrid" : "Remote"}</span>`);
   if (j.sponsor === "no") badges.push(`<span class="badge nospon">No sponsorship</span>`);
   if (j.sponsor === "yes") badges.push(`<span class="badge spon">Sponsors visa</span>`);
@@ -149,6 +182,15 @@ function render() {
   $("#empty").hidden = rows.length > 0;
   $("#list").hidden = rows.length === 0;
 
+  if (!rows.length) {
+    const why = [];
+    if (state.stateSel && state.stateSel !== "__remote") why.push(STATES[state.stateSel]);
+    if (state.audience) why.push(AUDIENCE_LABEL[state.audience].toLowerCase());
+    $("#emptyHint").textContent = why.length
+      ? `No ${why.join(" · ")} postings right now. Coverage grows as employers are added — try another state, or clear the filters.`
+      : "Try clearing a filter or adding another major.";
+  }
+
   const savedRows = state.jobs.filter((j) => state.saved.has(j.id));
   $("#savedList").innerHTML = savedRows.map(cardHTML).join("");
   $("#savedEmpty").hidden = savedRows.length > 0;
@@ -158,14 +200,38 @@ function render() {
   $("#sylBadge").textContent = state.syllabus ? state.syllabus.skills.length : "";
   $("#matchChip").hidden = !state.syllabus;
 
+  // The sheet covers the list, so the button carries the result count -- otherwise
+  // picking a major looks like it did nothing until you close the sheet.
+  $("#majorDone").textContent = `Show ${rows.length} job${rows.length === 1 ? "" : "s"}`;
+
   if (state.meta) {
-    const scope = state.majors.size
+    const bits = [];
+    bits.push(state.majors.size
       ? [...state.majors].map(majorLabel).slice(0, 2).join(" + ") +
         (state.majors.size > 2 ? ` +${state.majors.size - 2}` : "")
-      : "all majors";
+      : "all majors");
+    if (state.stateSel === "__remote") bits.push("remote");
+    else if (state.stateSel) bits.push(STATES[state.stateSel]);
     $("#subtitle").textContent =
-      `${rows.length} of ${state.meta.total} · ${scope} · updated ${ago(state.meta.generated_at)}`;
+      `${rows.length} of ${state.meta.total} · ${bits.join(" · ")} · updated ${ago(state.meta.generated_at)}`;
   }
+}
+
+function populateStates() {
+  const counts = state.meta?.by_state || {};
+  const remote = state.jobs.filter((j) => j.remote).length;
+  const options = [
+    `<option value="">All locations</option>`,
+    `<option value="__remote">Remote (${remote})</option>`,
+    ...Object.entries(STATES)
+      .sort((a, b) => a[1].localeCompare(b[1]))
+      .map(([abbr, name]) =>
+        `<option value="${abbr}">${name} (${counts[abbr] || 0})</option>`),
+  ];
+  const sel = $("#stateSelect");
+  sel.innerHTML = options.join("");
+  sel.value = state.stateSel;
+  $("#audienceSelect").value = state.audience;
 }
 
 /* -------------------------------------------------------------- major sheet */
@@ -345,6 +411,7 @@ async function load() {
     state.meta = meta;
     state.taxonomy = taxonomy;
 
+    populateStates();
     renderSyllabus();
     render();
 
@@ -406,11 +473,28 @@ $$(".tab").forEach((tab) => {
   });
 });
 
+$("#stateSelect").addEventListener("change", (e) => {
+  state.stateSel = e.target.value;
+  persist();
+  render();
+});
+
+$("#audienceSelect").addEventListener("change", (e) => {
+  state.audience = e.target.value;
+  persist();
+  render();
+});
+
 $("#clearAll").addEventListener("click", () => {
   state.filters.clear();
   state.query = "";
+  state.stateSel = "";
+  state.audience = "";
   $("#search").value = "";
+  $("#stateSelect").value = "";
+  $("#audienceSelect").value = "";
   $$(".chip").forEach((c) => c.setAttribute("aria-pressed", "false"));
+  persist();
   render();
 });
 

@@ -15,12 +15,41 @@ Every big job site buries entry-level roles under thousands of senior postings,
 the "0 years experience" filter is famously wrong, and the open-source
 alternatives are giant unfiltered README tables that only ever cover software.
 
-STU answers what a graduating student actually asks:
+STU answers what someone looking for a first job actually asks:
 
 1. Is this really entry-level, or is it "entry-level, 5 years required"?
-2. Will they sponsor a visa — or have they explicitly ruled it out?
-3. Does this have anything to do with what I'm studying?
-4. Am I actually qualified, given the classes I've taken?
+2. Is it anywhere near me?
+3. Can *I* apply — or does it require being enrolled somewhere right now?
+4. Will they sponsor a visa — or have they explicitly ruled it out?
+5. Am I actually qualified, given the classes I've taken?
+
+## Who it's for
+
+Not only current students. Every posting is tagged with who can actually apply,
+because that fact is almost never in the job title:
+
+| Audience | Meaning |
+|---|---|
+| **Current students** | Requires active enrolment — internships, co-ops, practicums |
+| **New grads** | Requires a recent degree — new-grad programs, nurse residencies |
+| **Open to the public** | Anyone. "No experience necessary", "we'll train", "high school diploma" |
+
+That last category is what makes STU useful to career changers and people who
+aren't in school at all. A *Pharmacy Technician* posting saying "no prior
+experience required, paid training provided" has no junior-sounding word in its
+title, and every keyword-based board misses it.
+
+## Nationwide
+
+All 50 states and DC are selectable, and states with no current postings are
+shown with a zero rather than hidden — an empty Wyoming is a true answer, and
+hiding it would look like the filter is broken.
+
+Coverage comes from two directions: regional employers (a health system or state
+university in a given state) and nationwide chains swept state by state.
+Workday's search covers location text as well as titles, so an employer flagged
+`"nationwide"` in the roster gets queried once per state — the only way a chain
+with 18,000 postings yields anything outside its biggest metros.
 
 ## How it works
 
@@ -156,8 +185,16 @@ uv run scripts/build_www.py      # collect web assets for the native build
 
 ## Limitations
 
-- **Coverage is 181 employers, not the whole market.** Deep on tech, health
+- **All 51 locations are selectable, but 34 currently have postings.** The rest
+  show a zero. That's an employer-roster gap, not a filter bug — the fix is
+  adding employers in those states (mostly AK, HI, MT, ND, NE, NM, NV, WY and
+  a few New England states), which is one line each in `companies.json`.
+- **Coverage is 191 employers, not the whole market.** Deep on tech, health
   systems and universities; thin on government, K-12, and non-US employers.
+- **Facility-named locations rely on the employer's home state.** Health systems
+  post to "Cobb Hospital" rather than a city, so single-state employers carry a
+  `state` in the roster and multi-state chains are left unresolved rather than
+  guessed at.
 - **Volume is seasonal.** New-grad and internship postings land August–November.
 - **Some majors are still thin.** Environmental Science and Public Health have
   very few postings — the honest fix is more employers, not looser matching.

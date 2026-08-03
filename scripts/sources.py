@@ -46,7 +46,8 @@ def get_json(url: str, payload: dict | None = None, retries: int = 3):
 
 def _row(**kw) -> dict:
     row = {"company": "", "source": "", "title": "", "url": "", "location_raw": "",
-           "description": "", "posted": None, "days": None, "dept": "", "remote_hint": False}
+           "description": "", "posted": None, "days": None, "dept": "",
+           "remote_hint": False, "default_state": None}
     row.update(kw)
     return row
 
@@ -188,6 +189,24 @@ WORKDAY_QUERIES = [
 ]
 WORKDAY_PAGES = 3  # 3 x 20 = up to 60 hits per query per employer
 
+# Workday's search covers the location text as well as the title, so appending a
+# state name genuinely narrows results to that state -- verified against CVS,
+# where "pharmacy intern Ohio" returns Ohio postings. Employers flagged
+# "nationwide" in companies.json get swept state by state, which is the only way
+# a chain with 18,000 postings yields anything outside its biggest metros.
+STATE_NAMES = [
+    "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado",
+    "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho",
+    "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine",
+    "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi",
+    "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey",
+    "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio",
+    "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina",
+    "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia",
+    "Washington", "West Virginia", "Wisconsin", "Wyoming", "District of Columbia",
+]
+NATIONWIDE_QUERIES = ["intern", "new grad", "entry level"]
+
 POSTED_RE = re.compile(r"(\d+)\+?\s*days?", re.I)
 
 
@@ -210,9 +229,18 @@ def workday(entry: dict) -> list[dict]:
     base = f"https://{tenant}.{wd}.myworkdayjobs.com"
     api = f"{base}/wday/cxs/{tenant}/{site}"
 
+    # (query, pages) -- the broad sweep goes deep, the per-state sweep goes wide.
+    plan = [(q, WORKDAY_PAGES) for q in WORKDAY_QUERIES]
+    if entry.get("nationwide"):
+        plan += [(f"{q} {state}", 1)
+                 for state in STATE_NAMES for q in NATIONWIDE_QUERIES]
+
     seen: dict[str, dict] = {}
-    for query in WORKDAY_QUERIES:
-        for page in range(WORKDAY_PAGES):
+
+    def sweep(job):
+        query, pages = job
+        found = []
+        for page in range(pages):
             try:
                 data = get_json(f"{api}/jobs", {
                     "appliedFacets": {}, "limit": 20,
@@ -223,6 +251,12 @@ def workday(entry: dict) -> list[dict]:
             postings = (data or {}).get("jobPostings", [])
             if not postings:
                 break
+            found.extend(postings)
+        return found
+
+    # A nationwide sweep is 150+ queries, so they run concurrently.
+    with ThreadPoolExecutor(max_workers=8) as pool:
+        for postings in pool.map(sweep, plan):
             for p in postings:
                 path = p.get("externalPath", "")
                 if path and path not in seen:
@@ -252,6 +286,10 @@ def workday(entry: dict) -> list[dict]:
             posted=None,
             days=_workday_days(p.get("postedOn")),
             dept="",
+            # Health systems label postings by facility ("Cobb Hospital"), which
+            # no string parsing resolves -- but a single-state employer's own
+            # state is the right answer for all of them.
+            default_state=entry.get("state"),
         )
 
     if not candidates:

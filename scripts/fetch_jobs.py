@@ -20,8 +20,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 import classify
-from classify import (LICENSE, CLEARANCE, is_entry_level, majors_for, min_years,
-                      parse_location, skills_in, sponsorship)
+from classify import (LICENSE, CLEARANCE, audience, is_entry_level, majors_for,
+                      min_years, parse_location, skills_in, sponsorship)
 from sources import FETCHERS
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -48,6 +48,9 @@ def build(raw: dict) -> dict | None:
         return None  # "entry-level" asking 4+ years is a mislabelled senior role
 
     loc = parse_location(raw.get("location_raw", ""), raw.get("remote_hint", False))
+    if not loc["state"] and raw.get("default_state") and not loc["remote"]:
+        loc["state"] = raw["default_state"]
+        loc["us"] = True
     company = (raw.get("company") or "").strip() or raw.get("source", "")
 
     return {
@@ -57,6 +60,7 @@ def build(raw: dict) -> dict | None:
         "url": url,
         "majors": majors,
         "role": role,
+        "audience": audience(role, desc),
         "yoe": yoe,
         "sponsor": sponsorship(desc),
         "clearance": bool(CLEARANCE.search(desc)),
@@ -133,6 +137,12 @@ def main() -> int:
                     "count": by_major[m["id"]]} for m in classify.MAJORS],
         "by_role": {r: sum(1 for j in unique if j["role"] == r)
                     for r in ("internship", "new_grad", "entry")},
+        "by_audience": {a: sum(1 for j in unique if j["audience"] == a)
+                        for a in ("students", "grads", "open")},
+        "by_state": dict(sorted(
+            ((s, sum(1 for j in unique if j["state"] == s))
+             for s in {j["state"] for j in unique if j["state"]}),
+            key=lambda kv: -kv[1])),
         "by_source": {s: sum(1 for j in unique if j["source"] == s) for s in FETCHERS},
     }
     (DATA / "meta.json").write_text(json.dumps(meta, indent=2), encoding="utf-8")

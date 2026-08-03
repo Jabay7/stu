@@ -68,6 +68,25 @@ YES_SPONSOR = re.compile(
 CLEARANCE = re.compile(r"\b(security\s+clearance|ts/sci|top\s+secret|\bpolygraph\b)\b", re.I)
 YEARS = re.compile(r"(\d{1,2})\s*(?:\+|-|–|\s+to\s+)?\s*(?:\d{1,2})?\s*\+?\s*years?", re.I)
 
+# Who is actually allowed to apply. An internship that demands current enrolment
+# is useless to someone who already graduated, and a role that says "no experience
+# necessary, we train" is open to anyone -- neither fact is in the job title.
+ENROLLED_ONLY = re.compile(
+    r"(currently\s+enrolled|must\s+be\s+enrolled|enrolled\s+in\s+(?:an?\s+)?"
+    r"(?:accredited\s+)?(?:degree|bachelor|master|nursing|graduate)\s*\w*\s*program|"
+    r"rising\s+(?:junior|senior|sophomore)|pursuing\s+(?:a|an|your)\s+"
+    r"(?:bachelor|master|associate|degree)|current(?:ly)?\s+a?\s*student|"
+    r"actively\s+enrolled)",
+    re.I,
+)
+OPEN_TO_ALL = re.compile(
+    r"(no\s+(?:prior\s+|previous\s+)?experience\s+(?:is\s+)?(?:required|necessary|needed)|"
+    r"we(?:'ll| will)\s+train|will\s+train|training\s+(?:is\s+)?provided|paid\s+training|"
+    r"high\s+school\s+diploma|\bged\b|no\s+degree\s+required|"
+    r"entry[\s-]level\s+(?:role|position|opportunity))",
+    re.I,
+)
+
 # A licence requirement is the clinical equivalent of "5 years experience" -- it
 # quietly disqualifies most students, so it's surfaced rather than filtered out.
 LICENSE = re.compile(
@@ -216,9 +235,13 @@ def parse_location(raw: str, remote_hint: bool = False) -> dict:
             state = abbr
             break
     if not state:
-        m = re.search(r",\s*([A-Z]{2})\b", loc)
-        if m and m.group(1) in US_STATES.values():
-            state = m.group(1)
+        # "Chicago, IL" but also the shapes big employers actually use:
+        # "FL - Ft. Myers", "OH-West Chester", "TX-Dallas-Main".
+        for pattern in (r",\s*([A-Z]{2})\b", r"\b([A-Z]{2})\s*[-–]\s*\w", r"^([A-Z]{2})\b"):
+            m = re.search(pattern, loc)
+            if m and m.group(1) in US_STATES.values():
+                state = m.group(1)
+                break
     if not state:
         for city, abbr in US_CITIES.items():
             if re.search(rf"\b{re.escape(city)}\b", low):
@@ -245,6 +268,24 @@ def is_entry_level(title: str, text: str = "") -> str | None:
     if ENTRY_TITLE.search(t):
         return "entry"
     if re.search(r"\b(new\s+grad|recent\s+graduate|graduating\s+in|0-2\s+years|"
-                 r"entry[\s-]level|no\s+experience\s+(?:required|necessary))\b", text, re.I):
+                 r"entry[\s-]level)\b", text, re.I):
+        return "entry"
+    # Nothing in the title says "junior", but the posting says anyone can do it.
+    # This is what makes STU useful to career changers and the general public,
+    # not only to people currently enrolled somewhere.
+    if OPEN_TO_ALL.search(text):
         return "entry"
     return None
+
+
+def audience(role: str, text: str) -> str:
+    """students (needs enrolment) / grads (needs a recent degree) / open (anyone)."""
+    if ENROLLED_ONLY.search(text):
+        return "students"
+    if OPEN_TO_ALL.search(text):
+        return "open"
+    if role == "internship":
+        return "students"
+    if role == "new_grad":
+        return "grads"
+    return "open"

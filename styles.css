@@ -135,6 +135,44 @@ body {
 #search:focus { border-color: var(--accent); }
 #search::-webkit-search-cancel-button { filter: grayscale(1) opacity(0.6); }
 
+/* ---------------------------------------------------------------- selects */
+
+.selects {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7px;
+  margin-bottom: 9px;
+}
+
+.sel {
+  position: relative;
+  display: block;
+}
+.sel svg {
+  position: absolute;
+  right: 9px; top: 50%;
+  transform: translateY(-50%);
+  width: 15px; height: 15px;
+  color: var(--muted);
+  pointer-events: none;
+}
+.sel select {
+  width: 100%;
+  appearance: none;
+  -webkit-appearance: none;
+  padding: 9px 28px 9px 12px;
+  border-radius: 11px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-size: 13.5px;
+  font-weight: 550;
+  outline: none;
+  text-overflow: ellipsis;
+}
+.sel select:focus { border-color: var(--accent); }
+
 /* ------------------------------------------------------------------ chips */
 
 .chips {
@@ -373,6 +411,10 @@ body {
 }
 
 .badge.lic { color: var(--warn); border-color: color-mix(in srgb, var(--warn) 32%, transparent); }
+
+.badge.aud-open     { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 32%, transparent); }
+.badge.aud-students { color: var(--info);   border-color: color-mix(in srgb, var(--info) 32%, transparent); }
+.badge.aud-grads    { color: var(--info);   border-color: color-mix(in srgb, var(--info) 32%, transparent); }
 
 .match {
   margin: 8px 0 0;

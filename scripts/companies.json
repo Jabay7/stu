@@ -174,7 +174,8 @@
       "tenant": "cvshealth",
       "wd": "wd1",
       "site": "CVS_Health_Careers",
-      "name": "CVS Health"
+      "name": "CVS Health",
+      "nationwide": true
     },
     {
       "tenant": "hshs",
@@ -186,109 +187,195 @@
       "tenant": "stcharles",
       "wd": "wd1",
       "site": "External",
-      "name": "St. Charles Health System"
+      "name": "St. Charles Health System",
+      "state": "OR"
     },
     {
       "tenant": "bhs",
       "wd": "wd1",
       "site": "careers",
-      "name": "Baptist Health"
+      "name": "Baptist Health",
+      "state": "KY"
     },
     {
       "tenant": "nshs",
       "wd": "wd1",
       "site": "ns-eeh",
-      "name": "Endeavor Health"
+      "name": "Endeavor Health",
+      "state": "IL"
     },
     {
       "tenant": "kansashealthsystem",
       "wd": "wd1",
       "site": "careers",
-      "name": "University of Kansas Health System"
+      "name": "University of Kansas Health System",
+      "state": "KS"
     },
     {
       "tenant": "bronsonhg",
       "wd": "wd1",
       "site": "nursing",
-      "name": "Bronson Healthcare"
+      "name": "Bronson Healthcare",
+      "state": "MI"
     },
     {
       "tenant": "montefiore",
       "wd": "wd12",
       "site": "MMC",
-      "name": "Montefiore"
+      "name": "Montefiore",
+      "state": "NY"
     },
     {
       "tenant": "healthcare",
       "wd": "wd1",
       "site": "Search",
-      "name": "Harris Health System"
+      "name": "Harris Health System",
+      "state": "TX"
     },
     {
       "tenant": "northeastern",
       "wd": "wd1",
       "site": "careers",
-      "name": "Northeastern University"
+      "name": "Northeastern University",
+      "state": "MA"
     },
     {
       "tenant": "american",
       "wd": "wd1",
       "site": "AU",
-      "name": "American University"
+      "name": "American University",
+      "state": "DC"
     },
     {
       "tenant": "uasys",
       "wd": "wd5",
       "site": "UASYS",
-      "name": "University of Arkansas System"
+      "name": "University of Arkansas System",
+      "state": "AR"
     },
     {
       "tenant": "montclair",
       "wd": "wd1",
       "site": "JobOpportunities",
-      "name": "Montclair State University"
+      "name": "Montclair State University",
+      "state": "NJ"
     },
     {
       "tenant": "wfu",
       "wd": "wd1",
       "site": "Staff_Career_Website_live",
-      "name": "Wake Forest University"
+      "name": "Wake Forest University",
+      "state": "NC"
     },
     {
       "tenant": "utaustin",
       "wd": "wd1",
       "site": "UTstudent",
-      "name": "UT Austin (student jobs)"
+      "name": "UT Austin (student jobs)",
+      "state": "TX"
     },
     {
       "tenant": "utaustin",
       "wd": "wd1",
       "site": "UTstaff",
-      "name": "UT Austin"
+      "name": "UT Austin",
+      "state": "TX"
     },
     {
       "tenant": "uchicago",
       "wd": "wd5",
       "site": "External",
-      "name": "University of Chicago"
+      "name": "University of Chicago",
+      "state": "IL"
     },
     {
       "tenant": "3m",
       "wd": "wd1",
       "site": "Search",
-      "name": "3M"
+      "name": "3M",
+      "state": "MN"
     },
     {
       "tenant": "mtb",
       "wd": "wd5",
       "site": "MTB",
-      "name": "M&T Bank"
+      "name": "M&T Bank",
+      "state": "NY"
     },
     {
       "tenant": "workday",
       "wd": "wd5",
       "site": "Workday",
       "name": "Workday"
+    },
+    {
+      "tenant": "target",
+      "wd": "wd5",
+      "site": "targetcareers",
+      "name": "Target",
+      "nationwide": true
+    },
+    {
+      "tenant": "ohiohealth",
+      "wd": "wd5",
+      "site": "OhioHealthJobs",
+      "name": "OhioHealth",
+      "state": "OH"
+    },
+    {
+      "tenant": "bannerhealth",
+      "wd": "wd5",
+      "site": "Careers",
+      "name": "Banner Health"
+    },
+    {
+      "tenant": "jefferson",
+      "wd": "wd5",
+      "site": "External",
+      "name": "Jefferson Health",
+      "state": "PA"
+    },
+    {
+      "tenant": "honorhealth",
+      "wd": "wd12",
+      "site": "Honorhealth_Careers",
+      "name": "HonorHealth",
+      "state": "AZ"
+    },
+    {
+      "tenant": "allina",
+      "wd": "wd5",
+      "site": "External",
+      "name": "Allina Health",
+      "state": "MN"
+    },
+    {
+      "tenant": "mercy",
+      "wd": "wd1",
+      "site": "mercycareers",
+      "name": "Mercy",
+      "nationwide": true
+    },
+    {
+      "tenant": "clemson",
+      "wd": "wd12",
+      "site": "Clemson_Careers",
+      "name": "Clemson University",
+      "state": "SC"
+    },
+    {
+      "tenant": "uvmhealth",
+      "wd": "wd1",
+      "site": "External",
+      "name": "UVM Health Network",
+      "state": "VT"
+    },
+    {
+      "tenant": "wellstar",
+      "wd": "wd1",
+      "site": "wellstarcareers",
+      "name": "Wellstar Health System",
+      "state": "GA"
     }
   ]
 }
