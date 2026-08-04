@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import json
 import sys
+from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 from pathlib import Path
@@ -31,27 +32,40 @@ DATA = ROOT / "data"
 # near-identical warehouse roles would otherwise bury every other field -- the
 # same failure as letting health systems crowd out everything else, just with a
 # different employer. Newest kept, rest dropped.
-PER_EMPLOYER_CAP = 20
+#
+# Set against the size of the board: too low and a large employer's genuinely
+# varied openings get thrown away, which is its own kind of waste.
+PER_EMPLOYER_CAP = 60
+
+
+# Where postings are lost. Printed at the end of every run so a sudden drop in
+# yield points at the stage responsible instead of being a mystery.
+REJECTED: Counter = Counter()
 
 
 def build(raw: dict) -> dict | None:
+    REJECTED["seen"] += 1
     title = " ".join((raw.get("title") or "").split())
     url = raw.get("url") or ""
     if not title or not url:
+        REJECTED["no title/url"] += 1
         return None
 
     desc = raw.get("description") or ""
     role = is_entry_level(title, desc)
     if not role:
+        REJECTED["not entry level"] += 1
         return None
 
     majors = majors_for(title, raw.get("dept", ""))
     if not majors:
-        return None  # nothing a student could major in -- not useful here
+        REJECTED["no major matched"] += 1
+        return None
 
     yoe = min_years(desc)
     if yoe is not None and yoe >= 4:
-        return None  # "entry-level" asking 4+ years is a mislabelled senior role
+        REJECTED["asks 4+ years"] += 1
+        return None
 
     loc = parse_location(raw.get("location_raw", ""), raw.get("remote_hint", False))
     if not loc["state"] and raw.get("default_state") and not loc["remote"]:
@@ -186,6 +200,12 @@ def main() -> int:
                     "skills": [lbl for lbl, _ in m["skills"]]} for m in classify.MAJORS],
         "skills": sorted(classify.ALL_SKILLS.keys()),
     }, separators=(",", ":"), ensure_ascii=False), encoding="utf-8")
+
+    seen = REJECTED.pop("seen", 0)
+    print(f"\nfunnel: {seen} postings fetched")
+    for reason, n in REJECTED.most_common():
+        print(f"   -{n:>6}  {reason}  ({n * 100 // max(1, seen)}%)")
+    print(f"   ={seen - sum(REJECTED.values()):>6}  passed filters")
 
     print(f"\n{len(unique)} unique entry-level roles from {len(ok)}/{len(all_targets)} boards")
     print(f"  by role:   {meta['by_role']}")

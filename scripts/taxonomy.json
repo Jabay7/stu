@@ -1,124 +1,124 @@
 {
-  "_comment": "The majors STU covers and the coursework skills that map to them. Adding a major is a data edit -- no code change. 'title' patterns are case-insensitive regex matched against job title + department. 'skills' are matched against pasted syllabus text AND job descriptions; overlap is what powers coursework matching.",
+  "_comment": "The majors STU covers and the coursework skills that map to them. Adding a major is a data edit -- no code change. 'title' patterns are case-insensitive regex matched against job title + department. IMPORTANT: a truncated stem must end in \\w* -- '\\bpharmac\\b' never matches 'Pharmacy' because the trailing \\b requires a non-word character. 'skills' are matched against pasted syllabus text AND job descriptions; overlap is what powers coursework matching.",
 
   "majors": [
     {
       "id": "cs",
       "label": "Computer Science",
       "group": "STEM",
-      "title": "\\b(software|engineer(?!ing manager)|developer|programmer|full\\s?stack|front\\s?end|back\\s?end|mobile|ios|android|web dev|devops|\\bsre\\b|site reliability|qa|test engineer|security|appsec|infosec|cloud|platform|systems? engineer|firmware|embedded)\\b",
+      "title": "\\b(software|engineer\\w*|developer|programm\\w*|full\\s?stack|front\\s?end|back\\s?end|mobile|ios|android|web\\s+dev\\w*|devops|sre|site\\s+reliability|\\bqa\\b|test\\s+engineer\\w*|security|appsec|infosec|cloud|platform|systems?\\s+(?:engineer\\w*|analyst|admin\\w*)|firmware|embedded|\\bit\\b|information\\s+technolog\\w*|help\\s?desk|technical\\s+support|computer)\\b",
       "skills": ["python", "java", "javascript", "typescript", "c++", "c#", "sql", "html", "css", "react", "node", "git", "github", "linux", "unix", "algorithms", "data structures", "object oriented", "operating systems", "computer architecture", "discrete math", "compilers", "databases", "networking", "cybersecurity", "cryptography", "api", "rest", "docker", "kubernetes", "aws", "azure", "agile", "unit testing", "assembly", "computer vision", "distributed systems"]
     },
     {
       "id": "data",
       "label": "Data Science & Analytics",
       "group": "STEM",
-      "title": "\\b(data (scien|engineer|analy)|analytics|business intelligence|machine learning|\\bml\\b|\\bai\\b|deep learning|statistician|quantitative|research scientist|actuar)\\b",
+      "title": "\\b(data\\s+(?:scien\\w*|engineer\\w*|analy\\w*|special\\w*)|analytics|analyst|business\\s+intelligence|machine\\s?learning|\\bml\\b|\\bai\\b|deep\\s+learning|statistic\\w*|quantitative|research\\s+scientist|actuar\\w*|informatics)\\b",
       "skills": ["statistics", "probability", "linear algebra", "calculus", "regression", "python", "\\br\\b", "sql", "pandas", "numpy", "machine learning", "data mining", "data visualization", "tableau", "power bi", "excel", "spss", "stata", "sas", "hypothesis testing", "time series", "bayesian", "experimental design", "econometrics", "big data", "spark"]
     },
     {
       "id": "nursing",
       "label": "Nursing",
       "group": "Health",
-      "title": "\\b(nurse|nursing|\\brn\\b|\\blpn\\b|\\bcna\\b|nurse practitioner|\\bnp\\b|patient care tech|clinical assistant|graduate nurse|nurse resident)\\b",
+      "title": "\\b(nurse\\w*|nursing|\\brn\\b|\\blpn\\b|\\bcna\\b|\\bnp\\b|patient\\s+care\\s+tech\\w*|clinical\\s+assistant|nurse\\s+extern\\w*|caregiver|care\\s+(?:aide|assistant|partner)|health\\s+care\\s+technician|patient\\s+access)\\b",
       "skills": ["anatomy", "physiology", "pharmacology", "pathophysiology", "medical terminology", "patient care", "nursing fundamentals", "clinical rotation", "med surg", "pediatrics", "obstetrics", "geriatrics", "mental health", "iv therapy", "phlebotomy", "vital signs", "wound care", "\\bbls\\b", "\\bacls\\b", "\\bcpr\\b", "hipaa", "electronic health record", "\\behr\\b", "epic", "care plan", "triage", "infection control", "microbiology"]
     },
     {
       "id": "medicine",
       "label": "Medicine & Pre-Med",
       "group": "Health",
-      "title": "\\b(physician|\\bmd\\b|doctor|medical (director|officer|assistant|scribe|technolog)|resident|residency|fellowship|clinical (research|coordinator|trial)|radiolog|pharmac|dental|dentist|veterinar|physical therap|occupational therap|respiratory therap|sonograph|surgical tech)\\b",
+      "title": "\\b(physician\\w*|\\bmd\\b|doctor|medical\\s+(?:director|officer|assistant|scribe|technolog\\w*|lab\\w*)|resident\\w*|residency|fellowship|clinical\\s+(?:research|coordinator|trial|tech\\w*)|radiolog\\w*|\\bct\\s+tech\\w*|\\bmri\\b|pharmac\\w*|dental|dentist\\w*|veterinar\\w*|physical\\s+therap\\w*|occupational\\s+therap\\w*|respiratory\\s+therap\\w*|sonograph\\w*|surgical\\s+tech\\w*|pathology|serology|phlebotom\\w*|paramedic|\\bemt\\b|nuc\\s+med|anesthe\\w*|optomet\\w*|audiolog\\w*|dietit\\w*|nutrition\\w*)\\b",
       "skills": ["anatomy", "physiology", "biochemistry", "organic chemistry", "pharmacology", "pathology", "microbiology", "immunology", "genetics", "medical terminology", "clinical research", "patient care", "hipaa", "\\bmcat\\b", "epidemiology", "histology", "neuroscience", "cell biology", "clinical trial", "\\bgcp\\b", "informed consent", "\\bemr\\b", "phlebotomy", "\\bcpr\\b"]
     },
     {
       "id": "publichealth",
       "label": "Public Health",
       "group": "Health",
-      "title": "\\b(public health|epidemiolog|health (educat|policy|promotion|equity)|community health|population health|biostatistic|global health|health informatics)\\b",
+      "title": "\\b(public\\s+health|epidemiolog\\w*|health\\s+(?:educat\\w*|policy|promotion|equity|physicist)|community\\s+health|population\\s+health|biostatistic\\w*|global\\s+health|health\\s+informatics|substance\\s+abuse|behavioral\\s+health|\\bbhs\\b|harm\\s+reduction)\\b",
       "skills": ["epidemiology", "biostatistics", "public health", "health policy", "community health", "program evaluation", "survey design", "spss", "\\bsas\\b", "\\br\\b", "statistics", "grant writing", "health disparities", "environmental health", "global health", "qualitative research", "data collection", "hipaa"]
     },
     {
       "id": "biology",
       "label": "Biology & Life Sciences",
       "group": "STEM",
-      "title": "\\b(biolog|biotech|bioinformatic|genomic|laborator|\\blab\\b|research associate|scientist|chemist|chemistry|assay|preclinical|molecular|microbiolog|toxicolog)\\b",
+      "title": "\\b(biolog\\w*|biotech\\w*|bioinformatic\\w*|genomic\\w*|laborator\\w*|\\blab\\b|research\\s+(?:associate|assistant|student|technician)|scientist|chemist\\w*|chemistry|assay|preclinical|molecular|microbiolog\\w*|toxicolog\\w*|immunolog\\w*|histolog\\w*|technologist)\\b",
       "skills": ["biology", "chemistry", "organic chemistry", "biochemistry", "molecular biology", "cell biology", "genetics", "microbiology", "\\bpcr\\b", "western blot", "cell culture", "chromatography", "spectroscopy", "titration", "lab safety", "lab notebook", "pipetting", "bioinformatics", "genomics", "\\bcrispr\\b", "electrophoresis", "assay", "microscopy", "\\bglp\\b"]
     },
     {
       "id": "engineering",
       "label": "Engineering (non-software)",
       "group": "STEM",
-      "title": "\\b((mechanical|electrical|civil|chemical|industrial|aerospace|biomedical|materials|structural|manufacturing|process|quality|environmental|hardware|robotics|controls) engineer|\\bcad\\b|design engineer)\\b",
+      "title": "\\b((?:mechanical|electrical|civil|chemical|industrial|aerospace|biomedical|materials|structural|manufacturing|process|quality|environmental|hardware|robotics|controls|field|project|construction)\\s+engineer\\w*|engineering\\s+tech\\w*|\\bcad\\b|design\\s+engineer\\w*|drafter|surveyor|maintenance\\s+tech\\w*|\\bhvac\\b|electrician|machinist|welder|mechanic)\\b",
       "skills": ["calculus", "differential equations", "physics", "statics", "dynamics", "thermodynamics", "fluid mechanics", "circuits", "signals", "control systems", "materials science", "solidworks", "autocad", "\\bcad\\b", "matlab", "simulink", "finite element", "\\bplc\\b", "ansys", "labview", "heat transfer", "mechanics of materials", "manufacturing processes", "six sigma"]
     },
     {
       "id": "business",
       "label": "Business & Management",
       "group": "Business",
-      "title": "\\b(business (analyst|operations|development|management)|operations|strategy|program manag|project manag|product manag|consult|management trainee|general manage|supply chain|logistics|procurement|merchandis)\\b",
+      "title": "\\b(business\\s+(?:analyst|operations|development|management)|operations|strateg\\w*|program\\s+manag\\w*|project\\s+manag\\w*|product\\s+manag\\w*|consult\\w*|management\\s+trainee|supply\\s+chain|logistics|procurement|merchandis\\w*|inventory|warehouse|distribution|store\\s+(?:manager|lead)|shift\\s+(?:lead|supervisor)|department\\s+manager\\s+trainee|administrative\\s+(?:specialist|assistant|coordinator)|office\\s+(?:manager|coordinator)|coordinator|specialist)\\b",
       "skills": ["excel", "powerpoint", "business strategy", "operations management", "project management", "supply chain", "logistics", "microeconomics", "macroeconomics", "business analytics", "market research", "case study", "process improvement", "six sigma", "lean", "\\bcrm\\b", "salesforce", "\\bkpi\\b", "forecasting", "budgeting", "sql", "tableau", "agile", "scrum"]
     },
     {
       "id": "finance",
       "label": "Finance & Accounting",
       "group": "Business",
-      "title": "\\b(financ|account(ing|ant)|audit|tax|treasury|controller|\\bfp&a\\b|investment|banking|equity research|risk analyst|underwrit|credit analyst|actuar|revenue analyst)\\b",
+      "title": "\\b(financ\\w*|account(?:ing|ant|s)?|audit\\w*|\\btax\\b|treasury|controller|\\bfp&a\\b|investment\\w*|banking|banker|teller|equity\\s+research|risk\\s+analyst|underwrit\\w*|credit\\s+analyst|actuar\\w*|revenue\\s+analyst|payroll|billing|collections|bookkeep\\w*)\\b",
       "skills": ["accounting", "financial accounting", "managerial accounting", "\\bgaap\\b", "financial modeling", "valuation", "corporate finance", "excel", "\\bvba\\b", "quickbooks", "auditing", "taxation", "cost accounting", "balance sheet", "income statement", "cash flow", "\\bcfa\\b", "\\bcpa\\b", "bloomberg", "portfolio", "derivatives", "econometrics", "statistics", "sql"]
     },
     {
       "id": "marketing",
       "label": "Marketing & Communications",
       "group": "Business",
-      "title": "\\b(marketing|brand|advertis|communications|public relations|\\bpr\\b|content|copywrit|social media|\\bseo\\b|growth|demand gen|creative strateg|journalis|editor)\\b",
+      "title": "\\b(marketing|brand\\w*|advertis\\w*|communications|public\\s+relations|\\bpr\\b|content|copywrit\\w*|social\\s+media|\\bseo\\b|growth|demand\\s+gen\\w*|creative\\s+strateg\\w*|journalis\\w*|editor\\w*|writer|media\\s+(?:planner|buyer)|events?\\s+(?:coordinator|specialist))\\b",
       "skills": ["marketing", "consumer behavior", "market research", "brand management", "advertising", "public relations", "social media", "\\bseo\\b", "\\bsem\\b", "google analytics", "content strategy", "copywriting", "campaign", "adobe", "canva", "hubspot", "email marketing", "media planning", "communications", "journalism", "graphic design"]
     },
     {
       "id": "sales",
       "label": "Sales & Customer Success",
       "group": "Business",
-      "title": "\\b(sales|account executive|account manager|business development rep|\\bbdr\\b|\\bsdr\\b|customer success|client (partner|success)|inside sales|retail associate)\\b",
+      "title": "\\b(sales\\w*|account\\s+(?:executive|manager|representative)|business\\s+development\\s+rep\\w*|\\bbdr\\b|\\bsdr\\b|customer\\s+(?:success|service|experience|support)|client\\s+(?:partner|success|service)|inside\\s+sales|retail\\s+(?:associate|sales)|cashier|teller|barista|server|host)\\b",
       "skills": ["sales", "negotiation", "\\bcrm\\b", "salesforce", "customer service", "communication", "public speaking", "persuasion", "prospecting", "relationship management", "consumer behavior", "business communication", "presentation"]
     },
     {
       "id": "education",
       "label": "Education & Teaching",
       "group": "Social",
-      "title": "\\b(teach|teacher|instructor|educat|curriculum|tutor|professor|lecturer|school|classroom|instructional design|learning (specialist|designer)|training specialist|academic advisor|admissions)\\b",
+      "title": "\\b(teach\\w*|instructor|educat\\w*|curriculum|tutor\\w*|professor|lecturer|school|classroom|instructional\\s+design\\w*|learning\\s+(?:specialist|designer)|training\\s+specialist|academic\\s+advisor|admissions|registrar|student\\s+(?:services|affairs|success)|career\\s+advisor|coach|childcare|preschool|paraprofessional)\\b",
       "skills": ["curriculum", "lesson planning", "classroom management", "pedagogy", "educational psychology", "child development", "instructional design", "assessment", "literacy", "special education", "student teaching", "differentiated instruction", "\\besl\\b", "learning theory", "tutoring", "public speaking"]
     },
     {
       "id": "law",
       "label": "Law & Criminal Justice",
       "group": "Social",
-      "title": "\\b(legal|counsel|attorney|paralegal|compliance|contracts|regulatory|policy analyst|litigation|criminal justice|law enforcement|investigat|privacy)\\b",
+      "title": "\\b(legal|counsel|attorney|paralegal|complian\\w*|contracts?|regulator\\w*|policy\\s+analyst|litigat\\w*|criminal\\s+justice|law\\s+enforcement|investigat\\w*|privacy|correction\\w*|\\bpolice\\b|officer\\s+(?:i|trainee)|sergeant|detention|probation|security\\s+officer|court)\\b",
       "skills": ["legal research", "legal writing", "constitutional law", "criminal justice", "contracts", "torts", "civil procedure", "compliance", "regulatory", "ethics", "westlaw", "lexisnexis", "case law", "policy analysis", "criminology", "evidence", "paralegal"]
     },
     {
       "id": "psych",
       "label": "Psychology & Social Work",
       "group": "Social",
-      "title": "\\b(psycholog|social work|counsel(or|ing)|behavioral|therapy|therapist|case (worker|manager)|human services|clinical psych|\\bbcba\\b|mental health)\\b",
+      "title": "\\b(psycholog\\w*|social\\s+work\\w*|counsel(?:or|ing|ling)|behavior\\w*|therap\\w*|case\\s+(?:worker|manager)|human\\s+services|clinical\\s+psych\\w*|\\bbcba\\b|mental\\s+health|crisis|residential\\s+(?:aide|counselor)|direct\\s+support|youth\\s+(?:worker|specialist))\\b",
       "skills": ["psychology", "abnormal psychology", "developmental psychology", "cognitive psychology", "social psychology", "research methods", "statistics", "spss", "counseling", "social work", "case management", "behavioral analysis", "\\bcbt\\b", "human development", "ethics", "crisis intervention", "motivational interviewing", "\\bdsm\\b"]
     },
     {
       "id": "design",
       "label": "Design & Arts",
       "group": "Creative",
-      "title": "\\b(design(er)?|\\bux\\b|\\bui\\b|user experience|user research|creative|illustrat|motion|graphic|visual|art director|animator|video|photograph|industrial design)\\b",
+      "title": "\\b(design\\w*|\\bux\\b|\\bui\\b|user\\s+experience|user\\s+research|creative|illustrat\\w*|motion|graphic\\w*|visual|art\\s+director|animat\\w*|video|photograph\\w*|industrial\\s+design|architect\\w*\\s+intern|studio)\\b",
       "skills": ["figma", "sketch", "adobe", "photoshop", "illustrator", "indesign", "after effects", "typography", "color theory", "user research", "wireframe", "prototyping", "design thinking", "\\bux\\b", "\\bui\\b", "usability", "drawing", "3d modeling", "blender", "animation", "portfolio"]
     },
     {
       "id": "hr",
       "label": "Human Resources",
       "group": "Business",
-      "title": "\\b(human resources|\\bhr\\b|people (ops|operations|partner)|recruit|talent acquisition|compensation|benefits|employee relations|organizational develop)\\b",
+      "title": "\\b(human\\s+resources|\\bhr\\b|people\\s+(?:ops|operations|partner)|recruit\\w*|talent\\s+acquisition|compensation|benefits|employee\\s+relations|organizational\\s+develop\\w*|staffing|onboarding)\\b",
       "skills": ["human resources", "organizational behavior", "recruiting", "talent acquisition", "compensation", "benefits", "employment law", "labor relations", "performance management", "onboarding", "\\bhris\\b", "workday", "training and development", "interviewing"]
     },
     {
       "id": "environment",
       "label": "Environmental Science",
       "group": "STEM",
-      "title": "\\b(environmental|sustainab|climate|conservation|ecolog|renewable|energy analyst|\\besg\\b|geolog|hydrolog|\\bgis\\b)\\b",
+      "title": "\\b(environmental|sustainab\\w*|climate|conservation|ecolog\\w*|renewable|energy\\s+analyst|\\besg\\b|geolog\\w*|hydrolog\\w*|\\bgis\\b|forestr\\w*|wildlife|water\\s+quality|recycl\\w*|solar|wind\\s+tech\\w*)\\b",
       "skills": ["environmental science", "ecology", "sustainability", "climate", "\\bgis\\b", "arcgis", "remote sensing", "hydrology", "geology", "conservation", "environmental policy", "field work", "water quality", "soil science", "renewable energy", "life cycle assessment", "\\besg\\b", "chemistry", "biology"]
     }
   ],

@@ -143,7 +143,8 @@ def lever(token: str) -> list[dict]:
 
 def smartrecruiters(token: str) -> list[dict]:
     out = []
-    for offset in (0, 100, 200):
+    # Bosch alone posts ~4,700 roles; stopping at 300 threw most of them away.
+    for offset in range(0, 5000, 100):
         data = get_json(
             f"https://api.smartrecruiters.com/v1/companies/{token}/postings"
             f"?limit=100&offset={offset}"
@@ -183,11 +184,9 @@ def smartrecruiters(token: str) -> list[dict]:
 #   3. Descriptions need a second request per job, so we only fetch them for
 #      postings whose title already looks entry-level.
 
-WORKDAY_QUERIES = [
-    "intern", "internship", "new grad", "graduate nurse", "nurse residency",
-    "entry level", "apprentice", "trainee", "student", "associate",
-]
-WORKDAY_PAGES = 3  # 3 x 20 = up to 60 hits per query per employer
+# Read up to this many postings per employer before falling back to sampling.
+# 6,000 covers all but the very largest chains outright, at 300 requests each.
+WORKDAY_MAX_POSTINGS = 6000
 
 # Workday's search covers the location text as well as the title, so appending a
 # state name genuinely narrows results to that state -- verified against CVS,
@@ -229,38 +228,53 @@ def workday(entry: dict) -> list[dict]:
     base = f"https://{tenant}.{wd}.myworkdayjobs.com"
     api = f"{base}/wday/cxs/{tenant}/{site}"
 
-    # (query, pages) -- the broad sweep goes deep, the per-state sweep goes wide.
-    plan = [(q, WORKDAY_PAGES) for q in WORKDAY_QUERIES]
-    if entry.get("nationwide"):
-        plan += [(f"{q} {state}", 1)
-                 for state in STATE_NAMES for q in NATIONWIDE_QUERIES]
-
     seen: dict[str, dict] = {}
 
-    def sweep(job):
-        query, pages = job
-        found = []
-        for page in range(pages):
-            try:
-                data = get_json(f"{api}/jobs", {
-                    "appliedFacets": {}, "limit": 20,
-                    "offset": page * 20, "searchText": query,
-                })
-            except Exception:
-                break
-            postings = (data or {}).get("jobPostings", [])
-            if not postings:
-                break
-            found.extend(postings)
-        return found
+    def fetch_page(args):
+        query, offset = args
+        try:
+            data = get_json(f"{api}/jobs", {
+                "appliedFacets": {}, "limit": 20,
+                "offset": offset, "searchText": query,
+            })
+        except Exception:
+            return []
+        return (data or {}).get("jobPostings", [])
 
-    # A nationwide sweep is 150+ queries, so they run concurrently.
-    with ThreadPoolExecutor(max_workers=8) as pool:
-        for postings in pool.map(sweep, plan):
-            for p in postings:
-                path = p.get("externalPath", "")
-                if path and path not in seen:
-                    seen[path] = p
+    # Read the whole board rather than sampling it with keywords. Keyword
+    # sampling was the single biggest source of missed jobs: it capped an
+    # employer at ~600 postings, so an 18,000-posting chain contributed a
+    # sliver. Paging is 20 at a time (Workday's hard limit) but parallel.
+    try:
+        head = get_json(f"{api}/jobs",
+                        {"appliedFacets": {}, "limit": 20, "offset": 0, "searchText": ""})
+    except Exception:
+        head = None
+    total = (head or {}).get("total", 0)
+
+    if total:
+        for p in (head or {}).get("jobPostings", []):
+            if p.get("externalPath"):
+                seen[p["externalPath"]] = p
+        depth = min(total, WORKDAY_MAX_POSTINGS)
+        offsets = [("", off) for off in range(20, depth, 20)]
+        with ThreadPoolExecutor(max_workers=12) as pool:
+            for postings in pool.map(fetch_page, offsets):
+                for p in postings:
+                    path = p.get("externalPath", "")
+                    if path and path not in seen:
+                        seen[path] = p
+
+    # Chains too big to read end to end still need geographic spread, so sweep
+    # them by state on top of the pages already read.
+    if entry.get("nationwide") and total > WORKDAY_MAX_POSTINGS:
+        plan = [(f"{q} {st}", 0) for st in STATE_NAMES for q in NATIONWIDE_QUERIES]
+        with ThreadPoolExecutor(max_workers=12) as pool:
+            for postings in pool.map(fetch_page, plan):
+                for p in postings:
+                    path = p.get("externalPath", "")
+                    if path and path not in seen:
+                        seen[path] = p
 
     # Only postings that already read as entry-level earn a description fetch.
     candidates = [(path, p) for path, p in seen.items()

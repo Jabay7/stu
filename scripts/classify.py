@@ -163,10 +163,29 @@ for label, rx in GENERIC_SKILLS:
     ALL_SKILLS.setdefault(label, rx)
 
 
+# "Engineer" alone has to count as software -- plenty of CS roles are titled just
+# "Engineer I" -- but a mechanical engineer or an engineering technician is not a
+# programmer, so those get the CS tag taken back off.
+NON_SW_ENGINEERING = re.compile(
+    r"\b((?:mechanical|electrical|civil|chemical|industrial|aerospace|biomedical|"
+    r"materials|structural|manufacturing|process|field|construction|hvac)\s+engineer|"
+    r"engineering\s+tech\w*|engineering\s+aide)\b",
+    re.I,
+)
+SOFTWARE_HINT = re.compile(
+    r"\b(software|developer|programm\w*|full\s?stack|back\s?end|front\s?end|"
+    r"web|data|cloud|devops|\bsre\b|firmware|embedded|security|platform|systems?)\b",
+    re.I,
+)
+
+
 def majors_for(title: str, dept: str = "") -> list[str]:
     """Every major whose title pattern matches. A job can serve several."""
     blob = f"{title} {dept}"
-    return [m["id"] for m in MAJORS if m["title"].search(blob)]
+    ids = [m["id"] for m in MAJORS if m["title"].search(blob)]
+    if "cs" in ids and NON_SW_ENGINEERING.search(blob) and not SOFTWARE_HINT.search(blob):
+        ids.remove("cs")
+    return ids
 
 
 def skills_in(text: str, limit: int = 14) -> list[str]:
