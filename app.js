@@ -90,9 +90,22 @@ const majorLabel = (id) => (state.taxonomy.majors.find((m) => m.id === id) || {}
 
 const skillSet = () => new Set(state.syllabus ? state.syllabus.skills : []);
 
-function visibleJobs() {
+/* One predicate per chip, so the filter and its live count can never disagree.
+ * "sponsor" means the posting explicitly says it sponsors -- only ~2% of
+ * postings mention sponsorship at all, so a chip that merely hid the explicit
+ * refusals removed almost nothing and read as broken. */
+const CHIP = {
+  internship: (j) => j.role === "internship",
+  new_grad: (j) => j.role === "new_grad",
+  sponsor: (j) => j.sponsor === "yes",
+  remote: (j) => j.remote,
+  nolicense: (j) => !j.license,
+  fresh: (j) => j.days !== null && j.days !== undefined && j.days <= 7,
+};
+
+/** exceptChip lets the chip counts show what you'd get, not what you have. */
+function visibleJobs(exceptChip = null) {
   const q = state.query.trim().toLowerCase();
-  const f = state.filters;
   const chosen = state.majors;
   const skills = skillSet();
 
@@ -112,21 +125,31 @@ function visibleJobs() {
       if (!q.split(/\s+/).every((w) => hay.includes(w))) return false;
     }
 
-    if (f.has("internship") && j.role !== "internship") return false;
-    if (f.has("new_grad") && j.role !== "new_grad") return false;
-    if (f.has("sponsor") && j.sponsor === "no") return false;
-    if (f.has("remote") && !j.remote) return false;
-    if (f.has("nolicense") && j.license) return false;
-    if (f.has("fresh") && !(j.days !== null && j.days <= 7)) return false;
+    for (const [key, pred] of Object.entries(CHIP)) {
+      if (key !== exceptChip && state.filters.has(key) && !pred(j)) return false;
+    }
     return true;
   });
 
   rows = rows.map((j) => ({ ...j, ...Syllabus.scoreJob(j, skills) }));
 
-  if (f.has("match") && skills.size) {
+  if (state.filters.has("match") && skills.size) {
     rows.sort((a, b) => b.score - a.score || (a.days ?? 999) - (b.days ?? 999));
   }
   return rows;
+}
+
+/* A filter that removes little looks broken. Showing what each one would leave
+ * makes it obvious that it works -- and that the data, not the code, is the
+ * limit when a count is small. */
+function updateChipCounts() {
+  for (const [key, pred] of Object.entries(CHIP)) {
+    const chip = document.querySelector(`.chip[data-filter="${key}"]`);
+    if (!chip) continue;
+    const n = visibleJobs(key).filter(pred).length;
+    chip.querySelector(".cnt").textContent = n;
+    chip.classList.toggle("is-empty", n === 0);
+  }
 }
 
 /* ------------------------------------------------------------------ render */
@@ -148,7 +171,10 @@ function cardHTML(j) {
     `<span class="badge major">${esc(majorLabel(m))}</span>`).join("");
 
   const when = postedLabel(j.days);
-  const meta = [`<span class="co">${esc(j.company)}</span>`, esc(j.location)];
+  const where = j.other_locations
+    ? `${esc(j.location)} +${j.other_locations} more`
+    : esc(j.location);
+  const meta = [`<span class="co">${esc(j.company)}</span>`, where];
   if (when) meta.push(when);
 
   const match = j.overlap && j.overlap.length
@@ -194,6 +220,8 @@ function render() {
   const savedRows = state.jobs.filter((j) => state.saved.has(j.id));
   $("#savedList").innerHTML = savedRows.map(cardHTML).join("");
   $("#savedEmpty").hidden = savedRows.length > 0;
+
+  updateChipCounts();
 
   $("#savedCount").textContent = state.saved.size || "";
   $("#jobCount").textContent = rows.length || "";

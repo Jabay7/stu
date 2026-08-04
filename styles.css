@@ -258,6 +258,17 @@ body {
 }
 .chip:active { transform: scale(0.96); }
 
+.chip .cnt {
+  font-style: normal;
+  font-size: 11px;
+  font-weight: 700;
+  opacity: 0.65;
+  margin-left: 2px;
+}
+/* A zero is still worth showing -- it says the filter works and the data is
+   thin, which is more useful than a chip that silently does nothing. */
+.chip.is-empty { opacity: 0.45; }
+
 /* ------------------------------------------------------------------- list */
 
 .list {

@@ -87,14 +87,32 @@ OPEN_TO_ALL = re.compile(
     re.I,
 )
 
-# A licence requirement is the clinical equivalent of "5 years experience" -- it
+# A professional licence is the clinical equivalent of "5 years experience" -- it
 # quietly disqualifies most students, so it's surfaced rather than filtered out.
+# The earlier pattern was far too narrow: it caught only 23 of 127 nursing roles,
+# which made the "No licence needed" filter look like it did nothing.
 LICENSE = re.compile(
-    r"\b(active\s+(?:rn|lpn|np|pa|md|do)\s+licen[cs]|"
-    r"current\s+(?:rn|nursing|state)\s+licen[cs]|licen[cs]ure\s+required|"
-    r"must\s+(?:have|possess)\s+(?:a\s+)?(?:current|active|valid)\s+\w*\s*licen[cs])",
+    r"(licen[cs]ure|"
+    r"licen[cs]ed\s+(?:as\s+)?(?:an?\s+)?(?:registered\s+nurse|practical\s+nurse|"
+    r"\brn\b|\blpn\b|\bnp\b|pharmacist|therapist|clinical\s+social\s+worker|"
+    r"professional|clinician)|"
+    r"(?:current|active|valid|unencumbered|unrestricted)\s+(?:\w+\s+){0,3}licen[cs]e|"
+    r"\b(?:rn|lpn|np|pa|md|do|pharm\.?d|lcsw|lmsw|bcba)\b[^.]{0,40}licen[cs]e|"
+    r"licen[cs]e\s+(?:is\s+)?required|"
+    r"must\s+(?:have|possess|hold)\s+[^.]{0,40}licen[cs]e)",
     re.I,
 )
+# A driving licence is not a professional credential and must not gate students.
+DRIVER_LICENSE = re.compile(r"driver'?s?\s+licen[cs]e|\bcdl\b|driving\s+licen[cs]e", re.I)
+
+
+def requires_license(text: str) -> bool:
+    """True only for professional licensure, ignoring 'valid driver's license'."""
+    for m in LICENSE.finditer(text or ""):
+        window = text[max(0, m.start() - 40): m.end() + 40]
+        if not DRIVER_LICENSE.search(window):
+            return True
+    return False
 
 TAG_RE = re.compile(r"<[^>]+>")
 WS_RE = re.compile(r"\s+")

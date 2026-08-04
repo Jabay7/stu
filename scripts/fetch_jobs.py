@@ -20,8 +20,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 import classify
-from classify import (LICENSE, CLEARANCE, audience, is_entry_level, majors_for,
-                      min_years, parse_location, skills_in, sponsorship)
+from classify import (CLEARANCE, audience, is_entry_level, majors_for, min_years,
+                      parse_location, requires_license, skills_in, sponsorship)
 from sources import FETCHERS
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -70,7 +70,7 @@ def build(raw: dict) -> dict | None:
         "yoe": yoe,
         "sponsor": sponsorship(desc),
         "clearance": bool(CLEARANCE.search(desc)),
-        "license": bool(LICENSE.search(desc)),
+        "license": requires_license(desc),
         "skills": skills_in(f"{title} {desc}"),
         "posted": raw.get("posted"),
         "days": raw.get("days"),
@@ -116,13 +116,23 @@ def main() -> int:
             if kept:
                 print(f"  {label}: {len(kept)} entry-level")
 
-    # Dedup -- the same role is often posted to several offices.
-    seen, unique = set(), []
+    # Dedup. The same role is often posted once per facility -- one health system
+    # had the same nurse residency listed seven times. Collapse to a single entry
+    # and record how many other locations it covers, rather than showing seven
+    # near-identical cards.
+    by_role: dict[tuple, dict] = {}
     for j in sorted(jobs, key=lambda x: (x["days"] is None, x["days"] or 0)):
-        key = (j["company"].lower(), j["title"].lower(), j["location"].lower())
-        if key not in seen:
-            seen.add(key)
-            unique.append(j)
+        key = (j["company"].lower(), j["title"].lower())
+        if key in by_role:
+            existing = by_role[key]
+            if j["location"].lower() != existing["location"].lower():
+                existing["other_locations"] = existing.get("other_locations", 0) + 1
+                if not existing["state"] and j["state"]:
+                    existing["state"] = j["state"]     # keep the first resolvable state
+            continue
+        j["other_locations"] = 0
+        by_role[key] = j
+    unique = list(by_role.values())
 
     per_employer: dict[str, int] = {}
     capped, dropped = [], 0
