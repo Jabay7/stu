@@ -23,6 +23,9 @@ ROOT = Path(__file__).resolve().parent.parent
 CFG = ROOT / "scripts" / "companies.json"
 UA = {"User-Agent": "stu-jobboard/1.0 (student project)"}
 
+# Deliberately spread across industries, not just software. STU covers every
+# major, so the roster has to include the employers that hire marketers,
+# accountants, designers, teachers, HR and legal -- not only engineers.
 CANDIDATES = """
 1password 8x8 abnormal addepar adobe affinity affirm airbnb airtable airwallex alchemy
 alloy alma altruist amplitude anaplan angi anthropic applovin arcadia articulate assembled
@@ -36,14 +39,39 @@ gusto handshake harvey headway hims hinge hopper huggingface iterable imprint in
 instacart intercom invisible jerry jumpcloud justworks kandji khanacademy klaviyo kong
 komodohealth kraken lattice launchdarkly leetcode lithic lucid lyft mercury mixpanel
 modernhealth moloco mongodb motive narvar netlify newfront niantic nuro nylas oaknorth
-observeai okta olo openphone opendoor oscarhealth outreach ozempic pachama pagerduty
+observeai okta olo openphone opendoor oscarhealth outreach pachama pagerduty
 panther patreon peloton pendo persona philo pilot pinterest planet plusai pocketgems
-postman primer quora ramp rarible recharge reddit reggie remitly replit retool rippling
+postman primer quora ramp rarible recharge reddit remitly replit retool rippling
 roblox robinhood rockset roku rubrik samsara scaleai scribd seatgeek semgrep sendbird
 sentry shieldai sigmacomputing skydio smartsheet snyk sofi sonder sourcegraph spothero
 sprig starburst strava stripe stubhub superhuman tala tecton temporal thumbtack tinder
 tonal tripadvisor twilio udemy unity upstart upwork verkada via viam vimeo warbyparker
 wealthfront webflow whatnot whoop wiz workato yelp zapier zip zipline zocdoc zoox
+
+allbirds glossier away casper chewy wayfair etsy poshmark thredup renttherunway
+stitchfix gopuff doordash grubhub sweetgreen cava shakeshack toasttab resy opentable
+marqeta stash acorns current varo brigit plaid adyen wise klarna figure angellist
+forge public betterment titan alpaca
+
+netflix hulu vimeo substack medium buzzfeed vox theathletic nytimes condenast hearst
+paramount a24 blizzard riotgames epicgames ea zynga scopely niantic twitch dropout
+
+convoy project44 shipbob flocksafety joby archer rivian nikola proterra
+redwoodmaterials formenergy boomsupersonic relativityspace firefly astranis
+
+chegg quizlet outschool guild commonapp teachforamerica donorschoose charitywater
+kiva newsela nearpod paper varsitytutors
+
+hubspot mailchimp sproutsocial later hootsuite semrush similarweb vidyard
+wistia sprinklr yext
+
+compass zillow redfin vacasa latch procore buildertrend cushmanwakefield
+
+lemonade root hippo nextinsurance coalition kin branch newfront
+
+ironclad evisort checkr deel remote oyster cultureamp 15five bamboohr
+
+palmetto aurorasolar watershed persefoni sila crusoe electrichydrogen
 """
 
 SOURCES = {

@@ -68,18 +68,28 @@ KNOWN = [
 # Aimed at the states that still show zero. State governments are included
 # because they hire in every state and several run public Workday boards --
 # North Carolina's nc.wd108/NC_Careers is the model.
+# Workday is where the roster skews medical, because health systems are the
+# biggest employers in small states. These are deliberately non-medical: retail,
+# banking, insurance, manufacturing, hospitality, media and universities, which
+# is where marketing, finance, HR, design and education roles actually live.
 CANDIDATES = {
-    "CT": ["hartfordhealthcare", "ynhhs", "uconn", "ct", "stamfordhealth", "trinityhealthofne"],
-    "DC": ["georgetown", "howard", "medstar", "dc", "childrensnational", "dcgov"],
-    "HI": ["hawaiipacifichealth", "queens", "hawaii", "kapiolani", "hmsa", "hawaiianelectric"],
-    "IA": ["unitypoint", "mercyone", "uiowa", "ia", "iastate", "wellmark", "hyvee"],
-    "ID": ["stlukes", "saintalphonsus", "boisestate", "id", "uidaho", "idahopower"],
-    "MS": ["umc", "olemiss", "msstate", "ms", "bmhcc", "southernmiss"],
-    "ND": ["sanfordhealth", "altru", "und", "nd", "ndsu", "essentiahealth"],
-    "NM": ["presbyterian", "unm", "nmsu", "nm", "phs", "lovelace"],
-    "NV": ["renown", "unlv", "unr", "nv", "nevada", "nvenergy"],
-    "WY": ["uwyo", "cheyenneregional", "wy", "wyomingmedicalcenter", "banner"],
-    "state-gov": ["va", "wa", "or", "co", "az", "tn", "sc", "md", "mn", "wi", "in", "ky"],
+    "retail": ["bestbuy", "nordstrom", "gap", "williamssonoma", "dickssportinggoods",
+               "tractorsupply", "petco", "ulta", "sephora", "aldi", "wegmans", "meijer"],
+    "finance": ["regions", "keybank", "huntington", "citizensbank", "discover",
+                "synchrony", "usaa", "fifththird", "comerica", "zionsbancorp"],
+    "insurance": ["progressive", "allstate", "statefarm", "libertymutual",
+                  "nationwide", "thehartford", "travelers", "erieinsurance"],
+    "industrial": ["cummins", "deere", "caterpillar", "honeywell", "emerson",
+                   "rockwellautomation", "parker", "dover", "textron", "leidos"],
+    "hospitality": ["marriott", "hilton", "hyatt", "united", "delta", "southwest",
+                    "alaskaair", "choicehotels", "wyndham"],
+    "media": ["comcast", "charter", "paramount", "warnerbros", "sonymusic", "nielsen"],
+    "consulting": ["protiviti", "rsm", "bdo", "grantthornton", "crowe", "kforce"],
+    "university": ["nyu", "bu", "gwu", "syr", "drexel", "depaul", "loyola", "fordham",
+                   "pepperdine", "baylor", "smu", "tcu", "villanova", "marquette"],
+    "state-gov": ["va", "wa", "or", "co", "az", "tn", "sc", "md", "mn", "wi", "in", "ky",
+                  "mo", "ga", "al", "ok", "ut", "nj", "ct", "nm", "nv", "hi", "id",
+                  "mt", "nd", "wy", "ms", "ia"],
 }
 
 

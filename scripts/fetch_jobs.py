@@ -27,6 +27,12 @@ from sources import FETCHERS
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
 
+# No single employer may dominate the board. One delivery company posting 800
+# near-identical warehouse roles would otherwise bury every other field -- the
+# same failure as letting health systems crowd out everything else, just with a
+# different employer. Newest kept, rest dropped.
+PER_EMPLOYER_CAP = 20
+
 
 def build(raw: dict) -> dict | None:
     title = " ".join((raw.get("title") or "").split())
@@ -117,6 +123,22 @@ def main() -> int:
         if key not in seen:
             seen.add(key)
             unique.append(j)
+
+    per_employer: dict[str, int] = {}
+    capped, dropped = [], 0
+    for j in unique:                       # already sorted newest-first
+        key = j["company"].lower()
+        per_employer[key] = per_employer.get(key, 0) + 1
+        if per_employer[key] > PER_EMPLOYER_CAP:
+            dropped += 1
+            continue
+        capped.append(j)
+    if dropped:
+        over = sorted((c for c, n in per_employer.items() if n > PER_EMPLOYER_CAP),
+                      key=lambda c: -per_employer[c])
+        print(f"\ncapped {dropped} listing(s) at {PER_EMPLOYER_CAP}/employer: "
+              + ", ".join(f"{c} ({per_employer[c]})" for c in over[:6]))
+    unique = capped
 
     existing = DATA / "jobs.json"
     if not unique and existing.exists() and json.loads(existing.read_text(encoding="utf-8")):
