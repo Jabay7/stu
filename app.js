@@ -204,6 +204,12 @@ function render() {
   // picking a major looks like it did nothing until you close the sheet.
   $("#majorDone").textContent = `Show ${rows.length} job${rows.length === 1 ? "" : "s"}`;
 
+  const picked = [...state.majors];
+  $("#majorValue").textContent = picked.length
+    ? picked.map(majorLabel).join(", ")
+    : "All majors";
+  $("#majorBtn").classList.toggle("is-set", picked.length > 0);
+
   if (state.meta) {
     const bits = [];
     bits.push(state.majors.size
@@ -400,6 +406,8 @@ function readSyllabus(text) {
 /* ------------------------------------------------------------------- data */
 
 async function load() {
+  const btn = $("#refreshBtn");
+  btn.classList.add("spin");
   try {
     const bust = `?v=${Date.now()}`;
     const [jobs, meta, taxonomy] = await Promise.all([
@@ -423,6 +431,8 @@ async function load() {
   } catch (err) {
     $("#subtitle").textContent = "Offline — showing what was cached";
     console.error(err);
+  } finally {
+    btn.classList.remove("spin");
   }
 }
 
@@ -497,6 +507,8 @@ $("#clearAll").addEventListener("click", () => {
   persist();
   render();
 });
+
+$("#refreshBtn").addEventListener("click", load);
 
 /* major sheet */
 $("#majorBtn").addEventListener("click", openSheet);

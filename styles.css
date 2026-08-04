@@ -135,43 +135,96 @@ body {
 #search:focus { border-color: var(--accent); }
 #search::-webkit-search-cancel-button { filter: grayscale(1) opacity(0.6); }
 
-/* ---------------------------------------------------------------- selects */
+/* ---------------------------------------------------------------- filters */
 
-.selects {
+/* Three controls that must line up exactly, so they share one box structure --
+   a label row above a value row -- rather than each being styled ad hoc.
+   "What are you studying?" spans the full width because it is the first thing
+   a new user should answer. */
+.filters {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 7px;
   margin-bottom: 9px;
 }
 
-.sel {
-  position: relative;
-  display: block;
-}
-.sel svg {
-  position: absolute;
-  right: 9px; top: 50%;
-  transform: translateY(-50%);
-  width: 15px; height: 15px;
-  color: var(--muted);
-  pointer-events: none;
-}
-.sel select {
-  width: 100%;
-  appearance: none;
-  -webkit-appearance: none;
-  padding: 9px 28px 9px 12px;
+.fbox {
+  grid-column: span 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+  margin: 0;
+  padding: 7px 11px 8px;
   border-radius: 11px;
   border: 1px solid var(--border);
   background: var(--surface);
   color: var(--text);
+  text-align: left;
   font: inherit;
-  font-size: 13.5px;
-  font-weight: 550;
-  outline: none;
+  cursor: pointer;
+}
+.fbox--wide { grid-column: 1 / -1; }
+.fbox:focus-within { border-color: var(--accent); }
+
+.flabel {
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--muted);
+  line-height: 1.2;
+}
+
+.fvalue {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+.fvalue > span,
+.fvalue > select {
+  flex: 1;
+  min-width: 0;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
   text-overflow: ellipsis;
 }
-.sel select:focus { border-color: var(--accent); }
+
+/* The native select carries the box's styling instead of its own, so it sits on
+   the same baseline as the button's text and still opens the OS picker. */
+.fvalue > select {
+  appearance: none;
+  -webkit-appearance: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  font-family: inherit;
+  outline: none;
+  cursor: pointer;
+}
+
+.chev {
+  flex: none;
+  width: 15px; height: 15px;
+  color: var(--muted);
+  pointer-events: none;
+}
+
+/* The majors control reads as "set", not just "chosen", once one is picked. */
+.fbox--wide.is-set { border-color: color-mix(in srgb, var(--accent) 45%, var(--border)); }
+.fbox--wide.is-set .flabel,
+.fbox--wide.is-set .chev { color: var(--accent); }
+
+@media (min-width: 560px) {
+  .filters { grid-template-columns: 2fr 1fr 1fr; }
+  .fbox--wide { grid-column: span 1; }
+}
 
 /* ------------------------------------------------------------------ chips */
 
