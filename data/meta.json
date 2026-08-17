@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-08-16T07:45:27+00:00",
-  "total": 1059,
+  "generated_at": "2026-08-17T08:00:48+00:00",
+  "total": 878,
   "employers_ok": 275,
   "employers_failed": [],
   "majors": [
@@ -8,164 +8,160 @@
       "id": "cs",
       "label": "Computer Science",
       "group": "STEM",
-      "count": 225
+      "count": 211
     },
     {
       "id": "data",
       "label": "Data Science & Analytics",
       "group": "STEM",
-      "count": 77
+      "count": 70
     },
     {
       "id": "nursing",
       "label": "Nursing",
       "group": "Health",
-      "count": 132
+      "count": 92
     },
     {
       "id": "medicine",
       "label": "Medicine & Pre-Med",
       "group": "Health",
-      "count": 189
+      "count": 158
     },
     {
       "id": "publichealth",
       "label": "Public Health",
       "group": "Health",
-      "count": 12
+      "count": 9
     },
     {
       "id": "biology",
       "label": "Biology & Life Sciences",
       "group": "STEM",
-      "count": 58
+      "count": 41
     },
     {
       "id": "engineering",
       "label": "Engineering (non-software)",
       "group": "STEM",
-      "count": 63
+      "count": 55
     },
     {
       "id": "business",
       "label": "Business & Management",
       "group": "Business",
-      "count": 238
+      "count": 222
     },
     {
       "id": "finance",
       "label": "Finance & Accounting",
       "group": "Business",
-      "count": 116
+      "count": 55
     },
     {
       "id": "marketing",
       "label": "Marketing & Communications",
       "group": "Business",
-      "count": 41
+      "count": 33
     },
     {
       "id": "sales",
       "label": "Sales & Customer Success",
       "group": "Business",
-      "count": 80
+      "count": 74
     },
     {
       "id": "education",
       "label": "Education & Teaching",
       "group": "Social",
-      "count": 46
+      "count": 41
     },
     {
       "id": "law",
       "label": "Law & Criminal Justice",
       "group": "Social",
-      "count": 48
+      "count": 45
     },
     {
       "id": "psych",
       "label": "Psychology & Social Work",
       "group": "Social",
-      "count": 39
+      "count": 36
     },
     {
       "id": "design",
       "label": "Design & Arts",
       "group": "Creative",
-      "count": 14
+      "count": 10
     },
     {
       "id": "hr",
       "label": "Human Resources",
       "group": "Business",
-      "count": 16
+      "count": 13
     },
     {
       "id": "environment",
       "label": "Environmental Science",
       "group": "STEM",
-      "count": 13
+      "count": 11
     }
   ],
   "by_role": {
-    "internship": 262,
-    "new_grad": 153,
-    "entry": 644
+    "internship": 215,
+    "new_grad": 116,
+    "entry": 547
   },
   "by_audience": {
-    "students": 275,
-    "grads": 135,
-    "open": 649
+    "students": 222,
+    "grads": 104,
+    "open": 552
   },
   "by_state": {
-    "IL": 110,
-    "CA": 98,
-    "NC": 71,
-    "NY": 53,
-    "AR": 42,
-    "TX": 37,
-    "UT": 29,
+    "CA": 96,
+    "IL": 89,
+    "NC": 65,
+    "NY": 52,
+    "AR": 40,
+    "MA": 28,
     "KS": 28,
-    "MA": 27,
+    "KY": 23,
     "VA": 23,
-    "KY": 22,
     "RI": 22,
     "OH": 21,
-    "TN": 20,
+    "TX": 19,
     "WA": 18,
-    "PA": 13,
-    "MO": 13,
-    "AL": 12,
-    "FL": 12,
-    "SC": 11,
-    "IN": 11,
-    "MS": 11,
-    "NJ": 10,
-    "LA": 10,
-    "NE": 9,
+    "PA": 15,
+    "TN": 10,
     "NV": 9,
     "AZ": 9,
+    "NJ": 8,
+    "IN": 8,
+    "SC": 8,
     "CO": 8,
-    "MI": 8,
-    "GA": 7,
+    "FL": 8,
+    "MO": 8,
+    "MI": 7,
     "MD": 7,
-    "CT": 6,
-    "AK": 6,
     "MN": 6,
-    "ME": 5,
+    "AK": 6,
     "WI": 5,
-    "NH": 3,
-    "OK": 3,
+    "ME": 4,
+    "UT": 4,
+    "AL": 3,
     "OR": 2,
-    "MT": 1,
+    "GA": 2,
+    "CT": 1,
     "DE": 1,
-    "SD": 1
+    "SD": 1,
+    "LA": 1,
+    "OK": 1
   },
   "by_source": {
-    "greenhouse": 218,
+    "greenhouse": 217,
     "ashby": 69,
     "lever": 98,
     "smartrecruiters": 60,
-    "workday": 614
+    "workday": 434
   }
 }
