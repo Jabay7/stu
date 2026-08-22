@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-08-21T07:57:18+00:00",
-  "total": 1097,
+  "generated_at": "2026-08-22T07:45:34+00:00",
+  "total": 883,
   "employers_ok": 275,
   "employers_failed": [],
   "majors": [
@@ -8,165 +8,160 @@
       "id": "cs",
       "label": "Computer Science",
       "group": "STEM",
-      "count": 251
+      "count": 203
     },
     {
       "id": "data",
       "label": "Data Science & Analytics",
       "group": "STEM",
-      "count": 80
+      "count": 71
     },
     {
       "id": "nursing",
       "label": "Nursing",
       "group": "Health",
-      "count": 115
+      "count": 106
     },
     {
       "id": "medicine",
       "label": "Medicine & Pre-Med",
       "group": "Health",
-      "count": 187
+      "count": 156
     },
     {
       "id": "publichealth",
       "label": "Public Health",
       "group": "Health",
-      "count": 13
+      "count": 10
     },
     {
       "id": "biology",
       "label": "Biology & Life Sciences",
       "group": "STEM",
-      "count": 64
+      "count": 45
     },
     {
       "id": "engineering",
       "label": "Engineering (non-software)",
       "group": "STEM",
-      "count": 69
+      "count": 56
     },
     {
       "id": "business",
       "label": "Business & Management",
       "group": "Business",
-      "count": 268
+      "count": 223
     },
     {
       "id": "finance",
       "label": "Finance & Accounting",
       "group": "Business",
-      "count": 110
+      "count": 55
     },
     {
       "id": "marketing",
       "label": "Marketing & Communications",
       "group": "Business",
-      "count": 42
+      "count": 32
     },
     {
       "id": "sales",
       "label": "Sales & Customer Success",
       "group": "Business",
-      "count": 71
+      "count": 68
     },
     {
       "id": "education",
       "label": "Education & Teaching",
       "group": "Social",
-      "count": 55
+      "count": 43
     },
     {
       "id": "law",
       "label": "Law & Criminal Justice",
       "group": "Social",
-      "count": 50
+      "count": 42
     },
     {
       "id": "psych",
       "label": "Psychology & Social Work",
       "group": "Social",
-      "count": 43
+      "count": 35
     },
     {
       "id": "design",
       "label": "Design & Arts",
       "group": "Creative",
-      "count": 17
+      "count": 14
     },
     {
       "id": "hr",
       "label": "Human Resources",
       "group": "Business",
-      "count": 25
+      "count": 23
     },
     {
       "id": "environment",
       "label": "Environmental Science",
       "group": "STEM",
-      "count": 10
+      "count": 9
     }
   ],
   "by_role": {
-    "internship": 293,
-    "new_grad": 135,
-    "entry": 669
+    "internship": 232,
+    "new_grad": 128,
+    "entry": 523
   },
   "by_audience": {
-    "students": 296,
-    "grads": 119,
-    "open": 682
+    "students": 242,
+    "grads": 107,
+    "open": 534
   },
   "by_state": {
     "CA": 95,
-    "IL": 95,
-    "NC": 65,
-    "NY": 52,
-    "WA": 45,
-    "AR": 43,
-    "UT": 38,
-    "TX": 33,
-    "VA": 32,
-    "KS": 30,
-    "MA": 28,
-    "OH": 28,
-    "TN": 27,
-    "RI": 22,
-    "KY": 20,
-    "FL": 16,
-    "PA": 16,
-    "AL": 15,
-    "WV": 14,
-    "MO": 13,
-    "IN": 12,
-    "GA": 11,
-    "NJ": 10,
-    "AZ": 10,
+    "IL": 88,
+    "NC": 63,
+    "NY": 49,
+    "AR": 38,
+    "MA": 29,
+    "KS": 29,
+    "VA": 22,
+    "KY": 21,
+    "RI": 21,
+    "TX": 20,
+    "WA": 20,
+    "OH": 19,
+    "PA": 14,
+    "AZ": 13,
+    "NJ": 11,
+    "TN": 10,
     "CO": 9,
-    "MD": 9,
-    "NE": 8,
-    "LA": 8,
+    "FL": 9,
     "NV": 8,
-    "MN": 8,
+    "NE": 8,
     "MI": 7,
-    "MS": 5,
+    "IN": 7,
+    "MN": 7,
+    "MD": 6,
+    "MO": 6,
+    "ME": 6,
     "WI": 5,
     "AK": 5,
     "SC": 5,
-    "ME": 5,
-    "OR": 3,
+    "GA": 4,
+    "UT": 3,
     "DE": 3,
-    "OK": 2,
-    "CT": 2,
-    "MT": 2,
-    "SD": 1,
-    "IA": 1
+    "AL": 3,
+    "OR": 3,
+    "LA": 2,
+    "CT": 1,
+    "SD": 1
   },
   "by_source": {
-    "greenhouse": 216,
-    "ashby": 62,
+    "greenhouse": 222,
+    "ashby": 61,
     "lever": 103,
     "smartrecruiters": 60,
-    "workday": 656
+    "workday": 437
   }
 }
