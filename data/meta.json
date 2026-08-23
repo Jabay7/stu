@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-08-22T07:45:34+00:00",
-  "total": 883,
+  "generated_at": "2026-08-23T07:47:16+00:00",
+  "total": 884,
   "employers_ok": 275,
   "employers_failed": [],
   "majors": [
@@ -8,7 +8,7 @@
       "id": "cs",
       "label": "Computer Science",
       "group": "STEM",
-      "count": 203
+      "count": 202
     },
     {
       "id": "data",
@@ -50,7 +50,7 @@
       "id": "business",
       "label": "Business & Management",
       "group": "Business",
-      "count": 223
+      "count": 224
     },
     {
       "id": "finance",
@@ -74,7 +74,7 @@
       "id": "education",
       "label": "Education & Teaching",
       "group": "Social",
-      "count": 43
+      "count": 45
     },
     {
       "id": "law",
@@ -86,7 +86,7 @@
       "id": "psych",
       "label": "Psychology & Social Work",
       "group": "Social",
-      "count": 35
+      "count": 34
     },
     {
       "id": "design",
@@ -108,28 +108,28 @@
     }
   ],
   "by_role": {
-    "internship": 232,
+    "internship": 233,
     "new_grad": 128,
     "entry": 523
   },
   "by_audience": {
-    "students": 242,
-    "grads": 107,
-    "open": 534
+    "students": 241,
+    "grads": 110,
+    "open": 533
   },
   "by_state": {
     "CA": 95,
-    "IL": 88,
+    "IL": 87,
     "NC": 63,
     "NY": 49,
     "AR": 38,
-    "MA": 29,
+    "MA": 30,
     "KS": 29,
-    "VA": 22,
+    "VA": 23,
     "KY": 21,
     "RI": 21,
-    "TX": 20,
     "WA": 20,
+    "TX": 20,
     "OH": 19,
     "PA": 14,
     "AZ": 13,
@@ -140,18 +140,18 @@
     "NV": 8,
     "NE": 8,
     "MI": 7,
-    "IN": 7,
     "MN": 7,
-    "MD": 6,
+    "IN": 7,
     "MO": 6,
     "ME": 6,
+    "MD": 6,
     "WI": 5,
-    "AK": 5,
     "SC": 5,
+    "AK": 5,
     "GA": 4,
+    "AL": 3,
     "UT": 3,
     "DE": 3,
-    "AL": 3,
     "OR": 3,
     "LA": 2,
     "CT": 1,
@@ -162,6 +162,6 @@
     "ashby": 61,
     "lever": 103,
     "smartrecruiters": 60,
-    "workday": 437
+    "workday": 438
   }
 }
