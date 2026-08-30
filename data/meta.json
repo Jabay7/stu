@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-08-29T13:10:23+00:00",
-  "total": 941,
+  "generated_at": "2026-08-30T12:53:04+00:00",
+  "total": 946,
   "employers_ok": 275,
   "employers_failed": [],
   "majors": [
@@ -20,13 +20,13 @@
       "id": "nursing",
       "label": "Nursing",
       "group": "Health",
-      "count": 100
+      "count": 104
     },
     {
       "id": "medicine",
       "label": "Medicine & Pre-Med",
       "group": "Health",
-      "count": 156
+      "count": 160
     },
     {
       "id": "publichealth",
@@ -38,7 +38,7 @@
       "id": "biology",
       "label": "Biology & Life Sciences",
       "group": "STEM",
-      "count": 50
+      "count": 53
     },
     {
       "id": "engineering",
@@ -68,7 +68,7 @@
       "id": "sales",
       "label": "Sales & Customer Success",
       "group": "Business",
-      "count": 78
+      "count": 76
     },
     {
       "id": "education",
@@ -86,7 +86,7 @@
       "id": "psych",
       "label": "Psychology & Social Work",
       "group": "Social",
-      "count": 34
+      "count": 35
     },
     {
       "id": "design",
@@ -108,61 +108,61 @@
     }
   ],
   "by_role": {
-    "internship": 288,
-    "new_grad": 122,
+    "internship": 292,
+    "new_grad": 123,
     "entry": 531
   },
   "by_audience": {
-    "students": 296,
-    "grads": 102,
-    "open": 543
+    "students": 302,
+    "grads": 104,
+    "open": 540
   },
   "by_state": {
-    "CA": 105,
+    "CA": 103,
     "IL": 91,
     "NC": 65,
-    "NY": 54,
-    "AR": 48,
+    "NY": 55,
+    "AR": 46,
     "MA": 30,
     "KS": 27,
+    "WA": 26,
     "KY": 25,
     "VA": 24,
-    "WA": 24,
     "OH": 23,
     "RI": 22,
     "TX": 16,
     "PA": 14,
+    "MI": 12,
     "AZ": 12,
     "MN": 12,
-    "MI": 12,
-    "SC": 11,
-    "TN": 10,
     "CO": 10,
+    "SC": 10,
+    "NE": 10,
+    "TN": 10,
+    "IN": 9,
     "GA": 9,
     "FL": 9,
-    "IN": 9,
+    "NV": 8,
     "NJ": 7,
-    "NV": 7,
     "MD": 7,
     "ME": 6,
-    "WI": 6,
     "MO": 6,
-    "UT": 6,
-    "OR": 4,
+    "WI": 6,
+    "UT": 5,
     "AL": 4,
     "AK": 4,
-    "DE": 2,
-    "CT": 2,
+    "OR": 4,
     "IA": 2,
-    "NE": 1,
-    "SD": 1,
-    "LA": 1
+    "CT": 2,
+    "DE": 2,
+    "LA": 1,
+    "SD": 1
   },
   "by_source": {
-    "greenhouse": 228,
+    "greenhouse": 227,
     "ashby": 62,
     "lever": 105,
     "smartrecruiters": 60,
-    "workday": 486
+    "workday": 492
   }
 }
