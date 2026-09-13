@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-09-12T11:37:07+00:00",
-  "total": 960,
+  "generated_at": "2026-09-13T12:44:09+00:00",
+  "total": 962,
   "employers_ok": 274,
   "employers_failed": [
     "greenhouse/marqeta: HTTPError: HTTP Error 404: Not Found"
@@ -22,13 +22,13 @@
       "id": "nursing",
       "label": "Nursing",
       "group": "Health",
-      "count": 95
+      "count": 87
     },
     {
       "id": "medicine",
       "label": "Medicine & Pre-Med",
       "group": "Health",
-      "count": 154
+      "count": 148
     },
     {
       "id": "publichealth",
@@ -40,7 +40,7 @@
       "id": "biology",
       "label": "Biology & Life Sciences",
       "group": "STEM",
-      "count": 46
+      "count": 43
     },
     {
       "id": "engineering",
@@ -58,25 +58,25 @@
       "id": "finance",
       "label": "Finance & Accounting",
       "group": "Business",
-      "count": 66
+      "count": 80
     },
     {
       "id": "marketing",
       "label": "Marketing & Communications",
       "group": "Business",
-      "count": 28
+      "count": 27
     },
     {
       "id": "sales",
       "label": "Sales & Customer Success",
       "group": "Business",
-      "count": 75
+      "count": 76
     },
     {
       "id": "education",
       "label": "Education & Teaching",
       "group": "Social",
-      "count": 49
+      "count": 47
     },
     {
       "id": "law",
@@ -110,56 +110,56 @@
     }
   ],
   "by_role": {
-    "internship": 319,
-    "new_grad": 134,
-    "entry": 507
+    "internship": 315,
+    "new_grad": 129,
+    "entry": 518
   },
   "by_audience": {
-    "students": 321,
-    "grads": 116,
-    "open": 523
+    "students": 316,
+    "grads": 112,
+    "open": 534
   },
   "by_state": {
     "CA": 122,
-    "IL": 91,
-    "NC": 68,
+    "IL": 93,
+    "NC": 69,
     "NY": 66,
     "AR": 38,
     "MA": 30,
     "KS": 28,
-    "TX": 26,
-    "WA": 26,
+    "TX": 27,
+    "WA": 25,
     "OH": 23,
     "RI": 22,
     "KY": 20,
     "VA": 20,
-    "AZ": 15,
     "PA": 15,
+    "AZ": 15,
+    "FL": 14,
+    "TN": 12,
     "CO": 11,
-    "TN": 10,
-    "NE": 10,
     "MN": 10,
-    "SC": 9,
-    "FL": 9,
+    "SC": 10,
     "IN": 9,
     "MI": 8,
+    "NJ": 7,
     "MD": 7,
+    "MO": 7,
     "GA": 6,
-    "MO": 6,
-    "NV": 6,
-    "NJ": 6,
     "AK": 5,
+    "NV": 5,
+    "AL": 4,
     "ME": 4,
-    "UT": 3,
     "OR": 3,
-    "LA": 3,
     "WI": 3,
-    "AL": 2,
     "DE": 2,
-    "CT": 1
+    "UT": 2,
+    "LA": 1,
+    "CT": 1,
+    "NE": 1
   },
   "by_source": {
-    "greenhouse": 268,
+    "greenhouse": 270,
     "ashby": 71,
     "lever": 110,
     "smartrecruiters": 60,
