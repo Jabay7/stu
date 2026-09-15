@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-09-14T14:02:06+00:00",
-  "total": 1015,
+  "generated_at": "2026-09-15T12:40:34+00:00",
+  "total": 1014,
   "employers_ok": 274,
   "employers_failed": [
     "greenhouse/marqeta: HTTPError: HTTP Error 404: Not Found"
@@ -10,37 +10,37 @@
       "id": "cs",
       "label": "Computer Science",
       "group": "STEM",
-      "count": 247
+      "count": 255
     },
     {
       "id": "data",
       "label": "Data Science & Analytics",
       "group": "STEM",
-      "count": 97
+      "count": 95
     },
     {
       "id": "nursing",
       "label": "Nursing",
       "group": "Health",
-      "count": 94
+      "count": 86
     },
     {
       "id": "medicine",
       "label": "Medicine & Pre-Med",
       "group": "Health",
-      "count": 158
+      "count": 148
     },
     {
       "id": "publichealth",
       "label": "Public Health",
       "group": "Health",
-      "count": 9
+      "count": 11
     },
     {
       "id": "biology",
       "label": "Biology & Life Sciences",
       "group": "STEM",
-      "count": 44
+      "count": 43
     },
     {
       "id": "engineering",
@@ -52,119 +52,118 @@
       "id": "business",
       "label": "Business & Management",
       "group": "Business",
-      "count": 294
+      "count": 297
     },
     {
       "id": "finance",
       "label": "Finance & Accounting",
       "group": "Business",
-      "count": 73
+      "count": 71
     },
     {
       "id": "marketing",
       "label": "Marketing & Communications",
       "group": "Business",
-      "count": 30
+      "count": 33
     },
     {
       "id": "sales",
       "label": "Sales & Customer Success",
       "group": "Business",
-      "count": 76
+      "count": 78
     },
     {
       "id": "education",
       "label": "Education & Teaching",
       "group": "Social",
-      "count": 40
+      "count": 46
     },
     {
       "id": "law",
       "label": "Law & Criminal Justice",
       "group": "Social",
-      "count": 43
+      "count": 40
     },
     {
       "id": "psych",
       "label": "Psychology & Social Work",
       "group": "Social",
-      "count": 35
+      "count": 37
     },
     {
       "id": "design",
       "label": "Design & Arts",
       "group": "Creative",
-      "count": 23
+      "count": 25
     },
     {
       "id": "hr",
       "label": "Human Resources",
       "group": "Business",
-      "count": 28
+      "count": 30
     },
     {
       "id": "environment",
       "label": "Environmental Science",
       "group": "STEM",
-      "count": 15
+      "count": 14
     }
   ],
   "by_role": {
-    "internship": 380,
-    "new_grad": 128,
-    "entry": 507
+    "internship": 395,
+    "new_grad": 125,
+    "entry": 494
   },
   "by_audience": {
-    "students": 386,
-    "grads": 111,
-    "open": 518
+    "students": 399,
+    "grads": 107,
+    "open": 508
   },
   "by_state": {
-    "CA": 128,
-    "IL": 96,
-    "NY": 78,
-    "NC": 69,
-    "AR": 38,
-    "TX": 30,
-    "KS": 28,
-    "MA": 27,
-    "OH": 26,
+    "CA": 126,
+    "IL": 95,
+    "NY": 82,
+    "NC": 70,
+    "AR": 37,
+    "TX": 31,
+    "KS": 30,
+    "MA": 29,
+    "WA": 26,
+    "OH": 25,
     "RI": 22,
-    "WA": 22,
     "VA": 22,
     "KY": 20,
-    "PA": 17,
     "AZ": 17,
-    "MN": 14,
-    "CO": 12,
-    "NE": 11,
-    "IN": 10,
-    "TN": 10,
+    "MN": 15,
+    "PA": 15,
+    "GA": 12,
     "FL": 10,
-    "GA": 10,
-    "SC": 9,
-    "MD": 8,
-    "NJ": 7,
-    "MI": 7,
+    "IN": 10,
+    "CO": 10,
+    "TN": 9,
+    "NJ": 8,
+    "MD": 7,
+    "NV": 6,
+    "SC": 6,
     "MO": 6,
+    "MI": 6,
     "AK": 5,
-    "NV": 5,
-    "OR": 4,
     "WI": 4,
-    "DE": 3,
-    "LA": 3,
+    "OR": 4,
+    "ME": 4,
+    "CT": 3,
     "AL": 3,
-    "IA": 2,
-    "CT": 2,
-    "ME": 2,
     "UT": 2,
-    "NH": 1
+    "IA": 2,
+    "DE": 2,
+    "LA": 1,
+    "NE": 1
   },
   "by_source": {
-    "greenhouse": 289,
-    "ashby": 71,
-    "lever": 110,
+    "greenhouse": 298,
+    "ashby": 72,
+    "lever": 109,
     "smartrecruiters": 60,
-    "workday": 485
+    "workday": 475
   }
 }
