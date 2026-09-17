@@ -1,52 +1,53 @@
 {
-  "generated_at": "2026-09-16T12:36:38+00:00",
-  "total": 985,
-  "employers_ok": 274,
+  "generated_at": "2026-09-17T12:36:09+00:00",
+  "total": 960,
+  "employers_ok": 273,
   "employers_failed": [
-    "greenhouse/marqeta: HTTPError: HTTP Error 404: Not Found"
+    "greenhouse/marqeta: HTTPError: HTTP Error 404: Not Found",
+    "greenhouse/postman: HTTPError: HTTP Error 404: Not Found"
   ],
   "majors": [
     {
       "id": "cs",
       "label": "Computer Science",
       "group": "STEM",
-      "count": 261
+      "count": 255
     },
     {
       "id": "data",
       "label": "Data Science & Analytics",
       "group": "STEM",
-      "count": 96
+      "count": 97
     },
     {
       "id": "nursing",
       "label": "Nursing",
       "group": "Health",
-      "count": 91
+      "count": 88
     },
     {
       "id": "medicine",
       "label": "Medicine & Pre-Med",
       "group": "Health",
-      "count": 151
+      "count": 148
     },
     {
       "id": "publichealth",
       "label": "Public Health",
       "group": "Health",
-      "count": 10
+      "count": 9
     },
     {
       "id": "biology",
       "label": "Biology & Life Sciences",
       "group": "STEM",
-      "count": 41
+      "count": 38
     },
     {
       "id": "engineering",
       "label": "Engineering (non-software)",
       "group": "STEM",
-      "count": 62
+      "count": 63
     },
     {
       "id": "business",
@@ -58,112 +59,112 @@
       "id": "finance",
       "label": "Finance & Accounting",
       "group": "Business",
-      "count": 67
+      "count": 66
     },
     {
       "id": "marketing",
       "label": "Marketing & Communications",
       "group": "Business",
-      "count": 33
+      "count": 35
     },
     {
       "id": "sales",
       "label": "Sales & Customer Success",
       "group": "Business",
-      "count": 74
+      "count": 75
     },
     {
       "id": "education",
       "label": "Education & Teaching",
       "group": "Social",
-      "count": 46
+      "count": 32
     },
     {
       "id": "law",
       "label": "Law & Criminal Justice",
       "group": "Social",
-      "count": 42
+      "count": 37
     },
     {
       "id": "psych",
       "label": "Psychology & Social Work",
       "group": "Social",
-      "count": 38
+      "count": 33
     },
     {
       "id": "design",
       "label": "Design & Arts",
       "group": "Creative",
-      "count": 26
+      "count": 24
     },
     {
       "id": "hr",
       "label": "Human Resources",
       "group": "Business",
-      "count": 32
+      "count": 31
     },
     {
       "id": "environment",
       "label": "Environmental Science",
       "group": "STEM",
-      "count": 10
+      "count": 9
     }
   ],
   "by_role": {
-    "internship": 355,
-    "new_grad": 134,
-    "entry": 496
+    "internship": 346,
+    "new_grad": 116,
+    "entry": 498
   },
   "by_audience": {
-    "students": 362,
-    "grads": 119,
-    "open": 504
+    "students": 352,
+    "grads": 101,
+    "open": 507
   },
   "by_state": {
-    "CA": 125,
-    "IL": 90,
-    "NY": 82,
+    "CA": 120,
+    "IL": 85,
+    "NY": 83,
     "NC": 69,
     "AR": 36,
-    "MA": 32,
+    "TX": 29,
     "KS": 28,
-    "TX": 25,
-    "OH": 22,
-    "WA": 22,
-    "RI": 22,
-    "KY": 21,
+    "OH": 24,
+    "RI": 23,
+    "KY": 20,
     "VA": 20,
-    "AZ": 18,
+    "MA": 18,
+    "WA": 17,
     "PA": 17,
-    "MN": 12,
+    "AZ": 14,
+    "MN": 11,
+    "NE": 10,
     "GA": 9,
     "FL": 9,
     "CO": 9,
     "TN": 9,
-    "IN": 8,
-    "MD": 7,
+    "IN": 7,
+    "SC": 7,
     "MO": 7,
     "NJ": 6,
+    "MD": 6,
+    "NV": 5,
     "AK": 5,
     "MI": 5,
-    "NV": 5,
-    "SC": 4,
-    "ME": 4,
+    "UT": 4,
     "OR": 3,
-    "UT": 3,
-    "LA": 3,
+    "AL": 3,
     "WI": 3,
     "DE": 2,
-    "AL": 2,
     "SD": 2,
-    "NE": 1,
+    "LA": 2,
+    "ME": 1,
     "CT": 1
   },
   "by_source": {
     "greenhouse": 303,
-    "ashby": 73,
+    "ashby": 74,
     "lever": 110,
     "smartrecruiters": 60,
-    "workday": 439
+    "workday": 413
   }
 }
