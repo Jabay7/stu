@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-09-24T12:43:58+00:00",
-  "total": 1034,
+  "generated_at": "2026-09-25T12:46:27+00:00",
+  "total": 1039,
   "employers_ok": 272,
   "employers_failed": [
     "greenhouse/instabase: HTTPError: HTTP Error 404: Not Found",
@@ -12,25 +12,25 @@
       "id": "cs",
       "label": "Computer Science",
       "group": "STEM",
-      "count": 282
+      "count": 295
     },
     {
       "id": "data",
       "label": "Data Science & Analytics",
       "group": "STEM",
-      "count": 96
+      "count": 94
     },
     {
       "id": "nursing",
       "label": "Nursing",
       "group": "Health",
-      "count": 92
+      "count": 94
     },
     {
       "id": "medicine",
       "label": "Medicine & Pre-Med",
       "group": "Health",
-      "count": 150
+      "count": 152
     },
     {
       "id": "publichealth",
@@ -48,37 +48,37 @@
       "id": "engineering",
       "label": "Engineering (non-software)",
       "group": "STEM",
-      "count": 72
+      "count": 75
     },
     {
       "id": "business",
       "label": "Business & Management",
       "group": "Business",
-      "count": 262
+      "count": 264
     },
     {
       "id": "finance",
       "label": "Finance & Accounting",
       "group": "Business",
-      "count": 74
+      "count": 73
     },
     {
       "id": "marketing",
       "label": "Marketing & Communications",
       "group": "Business",
-      "count": 33
+      "count": 32
     },
     {
       "id": "sales",
       "label": "Sales & Customer Success",
       "group": "Business",
-      "count": 83
+      "count": 78
     },
     {
       "id": "education",
       "label": "Education & Teaching",
       "group": "Social",
-      "count": 43
+      "count": 44
     },
     {
       "id": "law",
@@ -96,13 +96,13 @@
       "id": "design",
       "label": "Design & Arts",
       "group": "Creative",
-      "count": 21
+      "count": 23
     },
     {
       "id": "hr",
       "label": "Human Resources",
       "group": "Business",
-      "count": 33
+      "count": 30
     },
     {
       "id": "environment",
@@ -112,60 +112,60 @@
     }
   ],
   "by_role": {
-    "internship": 370,
-    "new_grad": 135,
-    "entry": 529
+    "internship": 381,
+    "new_grad": 134,
+    "entry": 524
   },
   "by_audience": {
-    "students": 372,
-    "grads": 117,
-    "open": 545
+    "students": 380,
+    "grads": 116,
+    "open": 543
   },
   "by_state": {
-    "CA": 145,
-    "NY": 97,
-    "IL": 90,
+    "CA": 153,
+    "NY": 95,
+    "IL": 85,
     "NC": 71,
-    "AR": 34,
-    "MA": 31,
+    "AR": 35,
+    "MA": 32,
     "KS": 31,
-    "TX": 28,
-    "WA": 25,
-    "OH": 23,
+    "TX": 29,
+    "WA": 27,
+    "OH": 22,
     "RI": 22,
     "AZ": 21,
     "VA": 19,
     "KY": 18,
-    "PA": 15,
+    "PA": 14,
     "FL": 12,
-    "GA": 9,
+    "SC": 10,
+    "MO": 10,
     "MN": 9,
     "TN": 9,
-    "CO": 9,
-    "SC": 8,
+    "CO": 8,
+    "GA": 8,
     "AK": 8,
-    "IN": 7,
     "NJ": 7,
-    "MO": 7,
-    "MD": 6,
+    "IN": 7,
+    "MD": 7,
     "MI": 5,
     "ME": 5,
-    "NV": 5,
-    "UT": 4,
     "OR": 4,
+    "NV": 4,
+    "AL": 3,
+    "WI": 3,
+    "LA": 3,
+    "UT": 3,
+    "DE": 2,
     "NE": 2,
     "SD": 2,
-    "CT": 2,
-    "WI": 2,
-    "AL": 2,
-    "DE": 2,
-    "LA": 1
+    "CT": 1
   },
   "by_source": {
-    "greenhouse": 342,
-    "ashby": 78,
-    "lever": 115,
+    "greenhouse": 348,
+    "ashby": 79,
+    "lever": 118,
     "smartrecruiters": 60,
-    "workday": 439
+    "workday": 434
   }
 }
