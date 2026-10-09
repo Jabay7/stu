@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-08T14:35:23+00:00",
-  "total": 1222,
+  "generated_at": "2026-10-09T14:22:32+00:00",
+  "total": 1100,
   "employers_ok": 268,
   "employers_failed": [
     "greenhouse/amplitude: HTTPError: HTTP Error 404: Not Found",
@@ -16,13 +16,13 @@
       "id": "cs",
       "label": "Computer Science",
       "group": "STEM",
-      "count": 339
+      "count": 336
     },
     {
       "id": "data",
       "label": "Data Science & Analytics",
       "group": "STEM",
-      "count": 124
+      "count": 122
     },
     {
       "id": "nursing",
@@ -34,7 +34,7 @@
       "id": "medicine",
       "label": "Medicine & Pre-Med",
       "group": "Health",
-      "count": 160
+      "count": 154
     },
     {
       "id": "publichealth",
@@ -46,133 +46,131 @@
       "id": "biology",
       "label": "Biology & Life Sciences",
       "group": "STEM",
-      "count": 60
+      "count": 56
     },
     {
       "id": "engineering",
       "label": "Engineering (non-software)",
       "group": "STEM",
-      "count": 78
+      "count": 76
     },
     {
       "id": "business",
       "label": "Business & Management",
       "group": "Business",
-      "count": 287
+      "count": 263
     },
     {
       "id": "finance",
       "label": "Finance & Accounting",
       "group": "Business",
-      "count": 132
+      "count": 66
     },
     {
       "id": "marketing",
       "label": "Marketing & Communications",
       "group": "Business",
-      "count": 46
+      "count": 42
     },
     {
       "id": "sales",
       "label": "Sales & Customer Success",
       "group": "Business",
-      "count": 81
+      "count": 78
     },
     {
       "id": "education",
       "label": "Education & Teaching",
       "group": "Social",
-      "count": 47
+      "count": 45
     },
     {
       "id": "law",
       "label": "Law & Criminal Justice",
       "group": "Social",
-      "count": 55
+      "count": 49
     },
     {
       "id": "psych",
       "label": "Psychology & Social Work",
       "group": "Social",
-      "count": 39
+      "count": 36
     },
     {
       "id": "design",
       "label": "Design & Arts",
       "group": "Creative",
-      "count": 32
+      "count": 27
     },
     {
       "id": "hr",
       "label": "Human Resources",
       "group": "Business",
-      "count": 39
+      "count": 34
     },
     {
       "id": "environment",
       "label": "Environmental Science",
       "group": "STEM",
-      "count": 10
+      "count": 11
     }
   ],
   "by_role": {
-    "internship": 469,
-    "new_grad": 143,
-    "entry": 610
+    "internship": 441,
+    "new_grad": 137,
+    "entry": 522
   },
   "by_audience": {
-    "students": 474,
-    "grads": 127,
-    "open": 621
+    "students": 443,
+    "grads": 122,
+    "open": 535
   },
   "by_state": {
-    "CA": 168,
-    "NY": 106,
-    "IL": 85,
-    "NC": 79,
-    "AR": 41,
-    "MA": 37,
-    "TX": 36,
-    "KS": 30,
-    "OH": 29,
-    "WA": 27,
-    "UT": 24,
-    "RI": 24,
+    "CA": 171,
+    "NY": 103,
+    "IL": 81,
+    "NC": 74,
+    "AR": 39,
+    "MA": 38,
+    "KS": 31,
+    "TX": 28,
+    "WA": 23,
+    "RI": 22,
     "KY": 21,
     "VA": 20,
-    "AL": 19,
-    "PA": 18,
-    "AZ": 16,
-    "FL": 16,
-    "TN": 13,
-    "AK": 11,
-    "NJ": 10,
-    "LA": 10,
-    "GA": 10,
-    "MN": 10,
-    "MO": 9,
-    "CO": 9,
+    "OH": 20,
+    "PA": 17,
+    "AZ": 14,
+    "AK": 12,
     "NE": 9,
-    "SC": 9,
-    "MI": 8,
-    "MD": 7,
-    "IN": 7,
+    "MN": 9,
+    "CO": 9,
+    "MI": 9,
+    "FL": 9,
+    "NJ": 8,
+    "TN": 8,
+    "MO": 7,
     "ME": 7,
-    "MS": 5,
-    "OR": 5,
+    "SC": 7,
+    "GA": 6,
+    "MD": 6,
+    "UT": 5,
     "NV": 5,
-    "CT": 3,
+    "IN": 5,
+    "AL": 4,
+    "OR": 4,
+    "LA": 4,
     "WI": 3,
-    "DE": 2,
+    "CT": 2,
     "SD": 2,
-    "ID": 1,
+    "DE": 2,
     "OK": 1
   },
   "by_source": {
-    "greenhouse": 399,
-    "ashby": 84,
+    "greenhouse": 395,
+    "ashby": 81,
     "lever": 123,
     "smartrecruiters": 60,
-    "workday": 556
+    "workday": 441
   }
 }
